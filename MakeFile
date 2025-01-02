@@ -2,6 +2,9 @@ create-project:
 	npm init
 
 install-deps:
-	npm i express typescript ts-node @types/node @types/express
+	npm i express mongodb mongoose bcryptjs validator jsonwebtoken
+
+install-dev-deps:
+	npm i env-cmd nodemon typescript ts-node-dev @types/express -D
 
 start-project:
