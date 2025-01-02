@@ -1,3 +1,7 @@
 create-project:
 	npm init
 
+install-deps:
+	npm i express typescript ts-node @types/node @types/express
+
+start-project:
