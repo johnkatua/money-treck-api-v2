@@ -1,0 +1,3 @@
+create-project:
+	npm init
+
