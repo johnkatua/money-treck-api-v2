@@ -7,4 +7,8 @@ install-deps:
 install-dev-deps:
 	npm i env-cmd nodemon typescript ts-node-dev @types/express -D
 
+generate-ts-config:
+	npx tsc --init
+
 start-project:
+	npm run start
