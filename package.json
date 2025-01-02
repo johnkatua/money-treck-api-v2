@@ -4,7 +4,7 @@
   "description": "money-treck-api",
   "main": "src/index.ts",
   "scripts": {
-    "start": "ts-node src/index.ts",
+    "start": "env-cmd -f ./.env nodemon src/index.ts",
     "build": "tsc",
     "serve": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"

@@ -4,6 +4,9 @@ const app = express();
 
 const port = process.env.PORT || 8000;
 
+// Express Middlewares
+app.use(express.json())
+
 app.get("/healthcheck", (req: Request, res: Response) => {
   res.send('API healthcheck!')
 })
