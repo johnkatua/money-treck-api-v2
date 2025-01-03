@@ -37,3 +37,5 @@ router.post("/login", async (req, res) => {
 
   return res.status(200).json(loggedInUser)
 })
+
+export default router
