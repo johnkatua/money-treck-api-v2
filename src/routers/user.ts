@@ -1,27 +1,27 @@
 import { Router } from "express";
-import { IUser } from "../models/User";
+import { IUser } from "../models/user";
 import { loginUser, registerUser } from "../controllers/user";
 import auth, { CustomRequest } from "../middleware/auth";
 
 const router = Router();
 
-router.post("/register", async (req, res) => {
+router.post("/register", async (req, res): Promise<any> => {
   const { name, email, password } = req.body;
   const userData: Partial<IUser> = {
     name, email, password
   }
 
   const registeredUser = await registerUser(userData)
-  if (registeredUser?.error) {
-    return res.status(400).json({
-      msg: registeredUser?.error
-    })
-  }
+  // if (registeredUser?.error) {
+  //   return res.status(400).json({
+  //     msg: registeredUser?.error
+  //   })
+  // }
 
   return res.status(201).json(registeredUser)
 })
 
-router.post("/login", async (req, res) => {
+router.post("/login", async (req, res): Promise<any> => {
   const { email, password } = req.body;
   const userData: Partial<IUser> = {
     email, password
@@ -29,11 +29,11 @@ router.post("/login", async (req, res) => {
 
   const loggedInUser = await loginUser(userData)
 
-  if (loggedInUser?.error) {
-    return res.status(400).json({
-      msg: loggedInUser?.error
-    })
-  }
+  // if (loggedInUser?.error) {
+  //   return res.status(400).json({
+  //     msg: loggedInUser?.error
+  //   })
+  // }
 
   return res.status(200).json(loggedInUser)
 })
