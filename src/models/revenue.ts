@@ -5,7 +5,7 @@ import { PeriodInterface } from "../interface/period";
 const revenueSchema = new Schema<IRevenue>({
   name: { type: String, required: true, unique: true, index: true },
   amount: { type: Number, required: true },
-  period: { type: PeriodInterface, required: true },
+  period: { type: String, required: true, enum: Object.values(PeriodInterface) },
   user_id: { type: String }
 }, { timestamps: true })
 
