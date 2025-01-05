@@ -1,22 +1,11 @@
 import { IRevenue } from "../interface/revenue";
 import RevenueModel from "../models/revenue";
 
-export const createRevenue = async (req, res) => {
+export const createRevenue = async (revenueData: Partial<IRevenue>) => {
   try {
-    const { name, amount, period } = req;
-    const user_id = req.user._id
-    const data = await RevenueModel.create({
-      name, amount, period, user_id
-    })
-    
-    res.status(201).json({
-      msg: "Revenue created successfully",
-      data
-    })
+    const data = await RevenueModel.create(revenueData)
+    return { data, success: true } 
   } catch (error) {
-    res.status(500).json({
-      msg: "Failed to create revenue",
-      error: error.message
-    })
+    return { data: null, success: false}
   }
 }
