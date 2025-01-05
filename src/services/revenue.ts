@@ -1,10 +1,12 @@
+import { Request, Response } from "express";
 import { createRevenue } from "../controllers/revenue";
 import { IRevenue } from "../interface/revenue";
+import { CustomRequest } from "../middleware/auth";
 
-export const create = async (req, res) => {
+export const create = async (req: CustomRequest, res: Response) => {
   try {
     const { name, amount, period } = req.body;
-    const user_id = req.user._id;
+    const user_id = req.user?._id;
   
     const revenueData: Partial<IRevenue> = {
       name, amount, period, user_id
@@ -17,9 +19,10 @@ export const create = async (req, res) => {
       data
     })
   } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
     res.status(500).json({
       msg: "Failed to create revenue",
-      error: error.message
+      error: errorMessage
     })
   }
 }

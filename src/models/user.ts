@@ -3,7 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export interface IUser extends Document {
-  _id: ObjectId
+  _id: string
   name: string
   email: string
   password: string

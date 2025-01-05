@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { IUser } from "../models/user";
 import { loginUser, registerUser } from "../controllers/user";
-import auth, { CustomRequest } from "../middleware/auth";
+// import auth, { CustomRequest } from "../middleware/auth";
 
 const router = Router();
 
