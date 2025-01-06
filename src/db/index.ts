@@ -4,19 +4,12 @@ if (!process.env.MONGO_URL) {
   throw new Error('MONGO_URL is not defined in the environment variables.')
 }
 
-console.log('Connecting to MongoDB...')
-
-mongoose.connect(process.env.MONGO_URL)
-
 const connectToDB = async (retries = 5, delay = 2000): Promise<void> => {
   console.log("Connecting to MongoDB...")
 
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      await mongoose.connect(process.env.MONGO_URL, {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-      })
+      await mongoose.connect(process.env.MONGO_URL!)
       console.log("MongoDB connection established successfully!")
       return; // Exit the function if the connection is successful
     } catch (error) {
