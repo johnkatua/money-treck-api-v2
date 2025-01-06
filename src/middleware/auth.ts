@@ -35,7 +35,7 @@ const auth = async (req: CustomRequest, res: Response, next: NextFunction) => {
     //   throw new Error('Authentication failed. User not found.')
     // }
 
-    // req.user = decoded;
+    req.user = decoded;
     // req.token = token;
     next()
   } catch (error) {

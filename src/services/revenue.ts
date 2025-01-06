@@ -7,10 +7,14 @@ export const create = async (req: CustomRequest, res: Response) => {
   try {
     const { name, amount, period } = req.body;
     const user_id = req.user?._id;
+
+    console.log("user", req.user)
   
     const revenueData: Partial<IRevenue> = {
       name, amount, period, user_id
     }
+
+    console.log(revenueData)
 
     const data = await createRevenue(revenueData)
 
