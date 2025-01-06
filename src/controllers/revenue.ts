@@ -9,3 +9,12 @@ export const createRevenue = async (revenueData: Partial<IRevenue>) => {
     return { data: null, success: false}
   }
 }
+
+export const findRevenues = async () => {
+  try {
+    const data = await RevenueModel.find()
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false }
+  }
+}
