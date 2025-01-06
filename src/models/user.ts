@@ -18,7 +18,7 @@ export interface IUserMethods {
 }
 
 interface UserModel extends Model<IUser, {}, IUserMethods> {
-  findCredentials(email: string, password: string): Promise<HydratedDocument<IUser, IUserMethods>>
+  findByCredentials(email: string, password: string): Promise<HydratedDocument<IUser, IUserMethods>>
 }
 
 const userSchema = new Schema<IUser, UserModel, IUserMethods>({
