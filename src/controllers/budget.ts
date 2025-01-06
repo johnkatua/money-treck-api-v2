@@ -18,3 +18,12 @@ export const getBudgets = async () => {
     return { data: null, success: false, error }
   }
 }
+
+export const getBudgetById = async (id: string) => {
+  try {
+    const data = await BudgetModel.findById(id);
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+}
