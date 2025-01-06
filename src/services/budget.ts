@@ -6,7 +6,7 @@ import { createBudget } from "../controllers/budget";
 export const create = async (req: CustomRequest, res: Response) => {
   try {
     const { name, amount, period } = req.body;
-    const user_id = req.user?._id;
+    const user_id = req.user?._id; // user_id retrieved from auth token
 
     const budgetData: Partial<IBudget> = {
       name, amount, period, user_id
