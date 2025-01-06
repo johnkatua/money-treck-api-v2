@@ -1,7 +1,8 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { CustomRequest } from "../middleware/auth";
 import { IBudget } from "../interface/budget";
 import { createBudget, getBudgetById, getBudgets } from "../controllers/budget";
+import { IExpenditure } from "../interface/expenditure";
 
 export const create = async (req: CustomRequest, res: Response) => {
   try {
@@ -44,7 +45,7 @@ export const getAll = async (req: CustomRequest, res: Response) => {
   }
 }
 
-export const getById = async (req: CustomRequest, res: Response) => {
+export const getById = async (req: CustomRequest, res: Response): Promise<any> => {
   const { id } = req.body;
   try {
     const data = await getBudgetById(id)
