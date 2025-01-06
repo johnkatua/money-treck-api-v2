@@ -12,7 +12,7 @@ const port = process.env.PORT || 8000;
 app.use(express.json())
 app.use("/api/users", userRouter);
 app.use("/api/revenues", revenueRouter);
-app.use("/api/budget", budgetRouter);
+app.use("/api/budgets", budgetRouter);
 
 app.get("/healthcheck", (req: Request, res: Response) => {
   res.send('API healthcheck!')
