@@ -9,3 +9,12 @@ export const createExpenditure = async (expenditureData: Partial<IExpenditure>) 
     return { data: null, success: false, error }
   }
 }
+
+export const getExpenditures = async () => {
+  try {
+    const data = await ExpenditureModel.find();
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+}
