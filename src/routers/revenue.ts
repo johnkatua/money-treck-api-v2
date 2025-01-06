@@ -1,10 +1,12 @@
 import { Router } from "express";
 import auth from "../middleware/auth";
-import { create } from "../services/revenue";
+import { create, getAll } from "../services/revenue";
 
 const router = Router();
 
-// Post /api/revenues - Create a new revenue
+// /api/revenues - Create a new revenue
 router.post("/", auth, create)
+router.get("/", auth, getAll)
+
 
 export default router;
