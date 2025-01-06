@@ -26,17 +26,7 @@ const auth = async (req: CustomRequest, res: Response, next: NextFunction) => {
 
     const decoded = jwt.verify(token, process.env.JWT_KEY as string) as DecodedToken
 
-    // const user = await User.findOne({
-    //   _id: decoded._id,
-    //   'tokens.token': token
-    // })
-
-    // if (!user) {
-    //   throw new Error('Authentication failed. User not found.')
-    // }
-
     req.user = decoded;
-    // req.token = token;
     next()
   } catch (error) {
     res.status(401).json({
