@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { Response } from "express";
 import { createRevenue } from "../controllers/revenue";
 import { IRevenue } from "../interface/revenue";
 import { CustomRequest } from "../middleware/auth";
