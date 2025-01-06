@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { createRevenue } from "../controllers/revenue";
+import { createRevenue, getRevenues } from "../controllers/revenue";
 import { IRevenue } from "../interface/revenue";
 import { CustomRequest } from "../middleware/auth";
 
@@ -22,6 +22,23 @@ export const create = async (req: CustomRequest, res: Response) => {
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
     res.status(500).json({
       msg: "Failed to create revenue",
+      error: errorMessage
+    })
+  }
+}
+
+export const getAll = async (req: CustomRequest, res: Response) => {
+  try {
+    const data = await getRevenues()
+
+    res.status(200).json({
+      msg: "Revenues fetched successfully!",
+      data
+    })
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    res.status(500).json({
+      msg: "Failed to fetch revenues",
       error: errorMessage
     })
   }
