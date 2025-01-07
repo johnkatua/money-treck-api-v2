@@ -8,3 +8,11 @@ export interface ISubscription extends Document {
   endDate: Date;
   status: "Active" | "Expired" | "Cancelled";
 }
+
+// Request body for subscription
+export interface SubscriptionRequestBody {
+  user_id: string,
+  planName: "Free" | "Basic" | "Premium",
+  price: number,
+  durationInDays: number
+}
