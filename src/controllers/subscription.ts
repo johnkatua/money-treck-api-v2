@@ -18,3 +18,19 @@ export const getUserSubscriptions = async (user_id: string) => {
     return { data: null, success: false, error }
   }
 }
+
+export const cancelSubscription = async (id: string) => {
+  try {
+    const data = await SubscriptionModel.findByIdAndUpdate(
+      id,
+      { status: "Cancelled" },
+      { new: true }
+    )
+
+    if (!data) return { data: null, success: false }
+
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+}

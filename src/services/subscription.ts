@@ -36,7 +36,8 @@ export const getUserSubscriptionsService = async (req: CustomRequest, res: Respo
     const data = await getUserSubscriptions(user_id)
 
     res.status(200).json({
-      msg: "Subscriptions fetched successfully"
+      msg: "Subscriptions fetched successfully",
+      data
     })
   } catch (error: any) {
     res.status(500).json({
