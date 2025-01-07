@@ -13,6 +13,8 @@ const port = process.env.PORT || 8000;
 
 // Express Middlewares
 app.use(express.json())
+
+// Routes
 app.use("/api/users", userRouter);
 app.use("/api/revenues", revenueRouter);
 app.use("/api/budgets", budgetRouter);
