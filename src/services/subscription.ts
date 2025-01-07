@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { CustomRequest } from "../middleware/auth";
 import { ISubscription, SubscriptionRequestBody } from "../interface/subscription";
-import { createSubscription, getUserSubscriptions } from "../controllers/subscription";
+import { cancelSubscription, createSubscription, getUserSubscriptions } from "../controllers/subscription";
 
 export const create = async (req: CustomRequest, res: Response) => {
   try {
@@ -42,6 +42,30 @@ export const getUserSubscriptionsService = async (req: CustomRequest, res: Respo
   } catch (error: any) {
     res.status(500).json({
       msg: "Failed to fetch subscriptions",
+      error: error.message
+    })
+  }
+}
+
+export const cancelSubscriptionService = async (req: CustomRequest, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const data = await cancelSubscription(id)
+
+    if (!data) {
+      return res.status(404).json({
+        msg: "Subscription not found"
+      })
+    }
+
+    res.status(200).json({
+      msg: "Subscription cancelled",
+      data
+    })
+  } catch (error: any) {
+    res.status(500).json({
+      msg: "Failed to cancel subscription",
       error: error.message
     })
   }
