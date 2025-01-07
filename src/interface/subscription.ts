@@ -1,7 +1,7 @@
-import { Document } from "mongoose";
+import { Document, ObjectId } from "mongoose";
 
 export interface ISubscription extends Document {
-  user_id: string;
+  user_id: ObjectId;
   planName: "Free" | "Basic" | "Premium";
   price: number;
   startDate: Date;
