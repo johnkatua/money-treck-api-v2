@@ -3,6 +3,7 @@ import userRouter from "./routers/user";
 import revenueRouter from "./routers/revenue";
 import budgetRouter from "./routers/budget";
 import expenditureRouter from "./routers/expenditure";
+import subscriptionRouter from "./routers/subscription";
 import "./db";
 
 const app = express();
@@ -15,6 +16,7 @@ app.use("/api/users", userRouter);
 app.use("/api/revenues", revenueRouter);
 app.use("/api/budgets", budgetRouter);
 app.use("/api/expenditures", expenditureRouter);
+app.use("/api/subscriptions", expenditureRouter);
 
 app.get("/healthcheck", (req: Request, res: Response) => {
   res.send('API healthcheck!')
