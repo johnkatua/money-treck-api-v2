@@ -14,5 +14,6 @@ export interface SubscriptionRequestBody {
   user_id: string,
   planName: "Free" | "Basic" | "Premium",
   price: number,
-  durationInDays: number
+  durationInDays: number,
+  endDate: Date
 }
