@@ -1,4 +1,4 @@
-import { Response } from "express";
+import { Request, Response } from "express";
 import { CustomRequest } from "../middleware/auth";
 import { ISubscription, SubscriptionRequestBody } from "../interface/subscription";
 import { cancelSubscription, createSubscription, getUserSubscriptions } from "../controllers/subscription";
@@ -47,7 +47,7 @@ export const getUserSubscriptionsService = async (req: CustomRequest, res: Respo
   }
 }
 
-export const cancelSubscriptionService = async (req: CustomRequest, res: Response) => {
+export const cancelSubscriptionService = async (req: Request<{ id: string }>, res: Response): Promise<any> => {
   try {
     const { id } = req.params;
 
