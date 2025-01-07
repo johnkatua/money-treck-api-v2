@@ -2,7 +2,7 @@ create-project:
 	npm init
 
 install-deps:
-	npm i express mongodb mongoose bcryptjs validator jsonwebtoken node-cron
+	npm i express mongodb mongoose bcryptjs validator jsonwebtoken node-cron 
 
 install-dev-deps:
 	npm i env-cmd nodemon typescript ts-node-dev @types/express  @types/node-cron -D
