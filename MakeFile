@@ -12,3 +12,4 @@ generate-ts-config:
 
 start-project:
 	npm run start
+
