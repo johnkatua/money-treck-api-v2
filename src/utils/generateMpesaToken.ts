@@ -1,13 +1,15 @@
 import axios from "axios";
 
 export const generateMpesaToken = async () => {
+  const { MPESA_CONSUMER_KEY, MPESA_CONSUMER_SECRET } = process.env;
   try {
     const tokenResponse = await axios.post(
-      'url',
+      'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials',
+      {},
       {
         auth: {
-          username: '',
-          password: ''
+          username: MPESA_CONSUMER_KEY!,
+          password: MPESA_CONSUMER_SECRET!
         }
       }
     )
