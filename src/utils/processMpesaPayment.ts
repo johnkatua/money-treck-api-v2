@@ -6,11 +6,13 @@ export const processMpesaPayment = async (amount: number, paymentId: string) => 
   try {
     const token = await generateMpesaToken();
 
+    const { MPESA_SHORTCODE, MPESA_PASSWORD, BASE_URL } = process.env;
+
     // Initiate Mpesa payment process
     const response = await axios.post(
       '',
       {
-
+        
       },
       {
         headers: {
