@@ -19,7 +19,7 @@ app.use(express.json())
 app.use("/api/users", userRouter);
 app.use("/api/revenues", revenueRouter);
 app.use("/api/budgets", budgetRouter);
-app.use("/api/expenditures", expenditureRouter);
+app.use("/api/expenses", expenditureRouter);
 app.use("/api/subscriptions", subscriptionRouter);
 app.use("/api/payments", paymentRouter);
 
