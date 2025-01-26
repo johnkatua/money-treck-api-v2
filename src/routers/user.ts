@@ -12,11 +12,13 @@ router.post("/register", async (req, res): Promise<any> => {
   }
 
   const registeredUser = await registerUser(userData)
-  // if (registeredUser?.error) {
-  //   return res.status(400).json({
-  //     msg: registeredUser?.error
-  //   })
-  // }
+
+  if (registeredUser.msg) {
+    const { msg } = registeredUser
+    return res.status(400).json(
+      msg
+    )
+  }
 
   return res.status(201).json(registeredUser)
 })
