@@ -13,13 +13,6 @@ router.post("/register", async (req, res): Promise<any> => {
 
   const registeredUser = await registerUser(userData)
 
-  if (registeredUser.msg) {
-    const { msg } = registeredUser
-    return res.status(400).json(
-      msg
-    )
-  }
-
   return res.status(201).json(registeredUser)
 })
 
