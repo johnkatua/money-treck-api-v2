@@ -31,6 +31,8 @@ export const getAll = async (req: CustomRequest, res: Response) => {
   try {
     const data = await getRevenues()
 
+    console.log({ data })
+
     res.status(200).json({
       msg: "Revenues fetched successfully!",
       data

@@ -1,5 +1,6 @@
 import express, { Request, Response } from "express";
 import cors from "cors";
+import morgan from "morgan";
 import userRouter from "./routers/user";
 import revenueRouter from "./routers/revenue";
 import budgetRouter from "./routers/budget";
@@ -16,6 +17,7 @@ const port = process.env.PORT || 8000;
 // Express Middlewares
 app.use(express.json())
 app.use(cors())
+app.use(morgan(':method :url :response-time :date[iso]'))
 
 // Routes
 app.use("/api/users", userRouter);
