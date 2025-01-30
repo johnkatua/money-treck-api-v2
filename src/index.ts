@@ -17,7 +17,7 @@ const port = process.env.PORT || 8000;
 // Express Middlewares
 app.use(express.json())
 app.use(cors())
-app.use(morgan(':method :url :response-time :date[iso]'))
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
 
 // Routes
 app.use("/api/users", userRouter);

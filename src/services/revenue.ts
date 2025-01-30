@@ -12,7 +12,14 @@ export const create = async (req: CustomRequest, res: Response) => {
       name, amount, period, user_id
     }
 
-    const data = await createRevenue(revenueData)
+    const { data, success, error } = await createRevenue(revenueData)
+
+    if (!success) {
+      res.status(400).json({
+        msg: error,
+        data
+      })
+    }
 
     res.status(201).json({
       msg: "Revenue created successfully",

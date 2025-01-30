@@ -1,6 +1,6 @@
 export enum PeriodInterface {
-  Daily = 'Daily',
-  Weekly = 'Weekly',
-  Monthly = 'Monthly',
-  Yearly = 'Yearly'
+  Daily = 'daily',
+  Weekly = 'weekly',
+  Monthly = 'monthly',
+  Yearly = 'yearly'
 }

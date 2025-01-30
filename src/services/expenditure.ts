@@ -31,6 +31,8 @@ export const getAll = async (req: CustomRequest, res: Response) => {
   try {
     const data = await getExpenditures();
 
+    console.log({ data })
+
     res.status(200).json({
       msg: "Expenditures fetched successfully!",
       data
