@@ -46,3 +46,12 @@ export const loginUser = async (user: Partial<IUser>) => {
     token
   }
 }
+
+export const getUserById = async (id: string) => {
+  try {
+    const data = await User.findById(id);
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+}
