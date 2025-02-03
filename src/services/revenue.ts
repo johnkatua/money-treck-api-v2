@@ -19,7 +19,7 @@ export const create = async (req: CustomRequest, res: Response) => {
         msg: error,
         data
       })
-    }
+    };
 
     res.status(201).json({
       msg: "Revenue created successfully",

@@ -5,4 +5,6 @@ export interface IUser {
   name: string,
   password: string,
   phoneNumber: string,
+  avatar?: string,
+  currency?: string
 }

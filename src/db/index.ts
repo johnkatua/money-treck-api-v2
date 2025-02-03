@@ -9,7 +9,9 @@ const connectToDB = async (retries = 5, delay = 2000): Promise<void> => {
 
   for (let attempt = 1; attempt <= retries; attempt++) {
     try {
-      await mongoose.connect(process.env.MONGO_URL!)
+      await mongoose.connect(process.env.MONGO_URL!, {
+        serverSelectionTimeoutMS: 5000, // Timeout after 5 seconds
+      })
       console.log("MongoDB connection established successfully!")
       return; // Exit the function if the connection is successful
     } catch (error) {
