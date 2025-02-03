@@ -25,7 +25,7 @@ jobs:
         run: |
           aws cloudformation deploy \
           --stack-name money-treck-api \
-          --template-file aws/cloudformation.yaml
+          --template-file aws/cloudformation.yaml \
           --capabilities CAPABILITY_NAMED_IAM
 
       - name: Check Stack Status
