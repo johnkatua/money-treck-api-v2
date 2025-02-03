@@ -55,3 +55,17 @@ export const getUserById = async (id: string) => {
     return { data: null, success: false, error }
   }
 }
+
+export const updateUser = async (user: Partial<IUser>) => {
+  const { id } = user;
+  try {
+    const data = await User.findByIdAndUpdate(
+      id,
+      { ...user },
+      { new: true }
+    )
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+}
