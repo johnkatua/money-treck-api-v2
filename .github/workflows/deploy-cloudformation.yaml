@@ -3,7 +3,6 @@ name: Deploy Cloudformation Stack
 on:
   push:
     branches:
-      - dev
       - main
 
 jobs:
