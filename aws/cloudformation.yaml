@@ -5,36 +5,36 @@ Resources:
     Properties:
       BucketName: "money-treck"
 
-  # Create an IAM User
-  S3AccessUser:
-    Type: "AWS::IAM::User"
-    Properties:
-      UserName: "money-treck-user"
+  #   # Create an IAM User
+  #   S3AccessUser:
+  #     Type: "AWS::IAM::User"
+  #     Properties:
+  #       UserName: "money-treck-user"
 
-  # Attach a policy to the IAM user for s3 access
-  S3AccessPolicy:
-    Type: "AWS::IAM::Policy"
-    Properties:
-      PolicyName: "money-treck"
-      Users:
-        - Ref: "S3AccessUser"
-      PolicyDocument:
-        Version: "2012-10-17"
-        Statement:
-          - Effect: "Allow"
-            Action:
-              - "s3:*"
-            Resource:
-              - !Sub "arn:aws:s3:::${S3Bucket}"
-              - !Sub "arn:aws:s3:::${S3Bucket}/*"
+  #   # Attach a policy to the IAM user for s3 access
+  #   S3AccessPolicy:
+  #     Type: "AWS::IAM::Policy"
+  #     Properties:
+  #       PolicyName: "money-treck"
+  #       Users:
+  #         - Ref: "S3AccessUser"
+  #       PolicyDocument:
+  #         Version: "2012-10-17"
+  #         Statement:
+  #           - Effect: "Allow"
+  #             Action:
+  #               - "s3:*"
+  #             Resource:
+  #               - !Sub "arn:aws:s3:::${S3Bucket}"
+  #               - !Sub "arn:aws:s3:::${S3Bucket}/*"
 
-  # Create an access key for the IAM user
-  S3AccessKey:
-    Type: "AWS::IAM::AccessKey"
-    Properties:
-      UserName: !Ref "S3AccessUser"
+  #   # Create an access key for the IAM user
+  #   S3AccessKey:
+  #     Type: "AWS::IAM::AccessKey"
+  #     Properties:
+  #       UserName: !Ref "S3AccessUser"
 
-Outputs:
+  # Outputs:
   # Output the S3 bucket name
   S3BucketName:
     Value: !Ref "S3Bucket"
