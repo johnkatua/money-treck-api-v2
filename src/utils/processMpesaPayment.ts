@@ -1,10 +1,15 @@
 import axios from "axios";
 import { generateMpesaToken } from "./generateMpesaToken"
 import PaymentModel from "../models/payment";
+import { generateTimestamp } from "./generateTimestamp";
+
+
 
 export const processMpesaPayment = async (amount: number, paymentId: string) => {
   try {
     const token = await generateMpesaToken();
+
+    const timestamp = generateTimestamp();
 
     const { MPESA_SHORTCODE, MPESA_PASSWORD, BASE_URL } = process.env;
 
@@ -14,12 +19,12 @@ export const processMpesaPayment = async (amount: number, paymentId: string) => 
       {
         BusinessShortCode: MPESA_SHORTCODE,
         Password: MPESA_PASSWORD,
-        Timestamp: new Date().toISOString(),
-        TransactionType: 'CustomerPaybillOnline',
+        Timestamp: timestamp,
+        TransactionType: 'CustomerPayBillOnline',
         Amount: amount,
-        PartyA: 'USER_PHONE_NUMBER',
+        PartyA: 254795029709,
         PartyB: MPESA_SHORTCODE,
-        PhoneNumber: 'USER_PHONE_NUMBER',
+        PhoneNumber: 254795029709,
         CallBackURL: `${BASE_URL}/mpesa/callback`,
         AccountReference: paymentId,
         TransactionDesc: 'Payment for Subscription'
@@ -31,9 +36,10 @@ export const processMpesaPayment = async (amount: number, paymentId: string) => 
     )
 
     return response.data
-  } catch (error) {
-    console.error(error);
+  } catch (error: any) {
+    const errorMessage = error.response.data.errorMessage
+    console.error(error.response.data.errorMessage);
     // await PaymentModel.findByIdAndUpdate(paymentId, { paymentStatus: 'Failed' });
-    throw new Error('Mpesa payment failed');
+    throw new Error(`Mpesa payment failed-${errorMessage}`);
   }
 }

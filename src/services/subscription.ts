@@ -10,7 +10,7 @@ export const create = async (req: CustomRequest, res: Response) => {
     const user_id = req.user?._id;
     const res = await processMpesaPayment(price, user_id!)
 
-    console.log(res)
+    // console.log(res)
 
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + durationInDays)
