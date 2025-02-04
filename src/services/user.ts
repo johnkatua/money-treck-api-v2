@@ -2,7 +2,6 @@ import { Response } from "express";
 import { getUserById, updateUser } from "../controllers/user";
 import { CustomRequest } from "../middleware/auth";
 import { uploadAvatar } from "../utils/uploadFile";
-import { IUser } from "../interface/user";
 
 
 export const getUser = async (req: CustomRequest, res: Response) => {

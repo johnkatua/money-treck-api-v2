@@ -12,7 +12,7 @@ export interface ISubscription extends Document {
 // Request body for subscription
 export interface SubscriptionRequestBody {
   user_id: string,
-  planName: "Free" | "Basic" | "Premium",
+  planName: "Monthly" | "Yearly",
   price: number,
   durationInDays: number,
   endDate: Date
