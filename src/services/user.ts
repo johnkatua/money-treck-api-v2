@@ -44,7 +44,7 @@ export const updateUserService = async (req: CustomRequest, res: Response) => {
 
       
       
-      const avatar = (req.file as S3File)?.location; // ✅ Type assertion to avoid TS errors
+      const avatar = (req.file as S3File)?.location;
 
       const userData = { currency, id, avatar };
       const data = await updateUser(userData);
