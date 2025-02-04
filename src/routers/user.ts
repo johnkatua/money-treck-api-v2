@@ -29,7 +29,7 @@ router.post("/login", async (req, res): Promise<any> => {
   return res.status(200).json(loggedInUser)
 });
 
-router.get("/:id", auth, getUser)
-router.put("/:id", auth, updateUserService)
+router.get("/user", auth, getUser)
+router.put("/user", auth, updateUserService)
 
 export default router
