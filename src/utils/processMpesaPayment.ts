@@ -6,6 +6,8 @@ export const processMpesaPayment = async (amount: number, paymentId: string) => 
   try {
     const token = await generateMpesaToken();
 
+    console.log({ token })
+
     const { MPESA_SHORTCODE, MPESA_PASSWORD, BASE_URL } = process.env;
 
     // Initiate Mpesa payment process -> M-Pesa Express Simulate
@@ -32,8 +34,8 @@ export const processMpesaPayment = async (amount: number, paymentId: string) => 
 
     return response.data
   } catch (error) {
-    console.error(error);
-    await PaymentModel.findByIdAndUpdate(paymentId, { paymentStatus: 'Failed' });
+    // console.error(error);
+    // await PaymentModel.findByIdAndUpdate(paymentId, { paymentStatus: 'Failed' });
     throw new Error('Mpesa payment failed');
   }
 }

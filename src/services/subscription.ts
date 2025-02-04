@@ -2,11 +2,15 @@ import { Request, Response } from "express";
 import { CustomRequest } from "../middleware/auth";
 import { ISubscription, SubscriptionRequestBody } from "../interface/subscription";
 import { cancelSubscription, createSubscription, getUserSubscriptions } from "../controllers/subscription";
+import { processMpesaPayment } from "../utils/processMpesaPayment";
 
 export const create = async (req: CustomRequest, res: Response) => {
   try {
     const { planName, price, durationInDays } = req.body
     const user_id = req.user?._id;
+    const res = await processMpesaPayment(price, user_id!)
+
+    console.log(res)
 
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + durationInDays)
