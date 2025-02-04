@@ -7,6 +7,9 @@ export interface IUser extends Document {
   name: string
   email: string
   password: string
+  phoneNumber: string,
+  avatar?: string,
+  currency?: string
   tokens: {
     token: string
   } []
@@ -29,7 +32,10 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>({
     type: String, required: true
   },
   password: { type: String, required: true },
-  tokens: [{ token: { type: String, required: true }}]
+  phoneNumber: { type: String },
+  avatar: { type: String },
+  currency: { type: String },
+  tokens: [{ token: { type: String, required: true } }],
 })
 
 userSchema.pre('save', async function (next) {

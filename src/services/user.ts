@@ -29,13 +29,15 @@ export const getUser = async (req: CustomRequest, res: Response) => {
 
 export const updateUserService = async (req: CustomRequest, res: Response) => {
   try {
-    uploadAvatar(req, res, async (err) => {
+    let results = uploadAvatar(req, res, async (err) => {
       if (err) {
         return res.status(500).json({
           msg: `Error uploading file to s3 ${err}`
         })
       }
     })
+
+    console.log({ results })
     const { currency } = req.body;
     const id = req.user?._id;
     const avatar = req.file?.originalname
