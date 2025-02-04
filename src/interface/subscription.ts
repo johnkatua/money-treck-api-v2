@@ -2,7 +2,7 @@ import { Document, ObjectId } from "mongoose";
 
 export interface ISubscription extends Document {
   user_id: ObjectId;
-  planName: "Free" | "Basic" | "Premium";
+  planName: "Monthly" | "Yearly";
   price: number;
   startDate: Date;
   endDate: Date;
