@@ -4,6 +4,11 @@ Resources:
     Type: "AWS::S3::Bucket"
     Properties:
       BucketName: "money-treck"
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
 
   S3BucketPolicy:
     Type: "AWS::S3::BucketPolicy"
@@ -16,12 +21,3 @@ Resources:
             Principal: "*"
             Action: "s3:GetObject"
             Resource: !Sub "arn:aws:s3:::money-treck/*"
-
-  S3PublicAccessBlock:
-    Type: "AWS::S3::BucketPublicAccessBlock"
-    Properties:
-      Bucket: !Ref S3Bucket
-      BlockPublicAcls: false
-      BlockPublicPolicy: false
-      IgnorePublicAcls: false
-      RestrictPublicBuckets: false
