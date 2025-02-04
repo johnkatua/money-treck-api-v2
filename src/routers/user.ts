@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { IUser } from "../models/user";
 import { loginUser, registerUser } from "../controllers/user";
+import auth from "../middleware/auth";
+import { getUser, updateUserService } from "../services/user";
 // import auth, { CustomRequest } from "../middleware/auth";
 
 const router = Router();
@@ -24,13 +26,10 @@ router.post("/login", async (req, res): Promise<any> => {
 
   const loggedInUser = await loginUser(userData)
 
-  // if (loggedInUser?.error) {
-  //   return res.status(400).json({
-  //     msg: loggedInUser?.error
-  //   })
-  // }
-
   return res.status(200).json(loggedInUser)
-})
+});
+
+router.get("/:id", auth, getUser)
+router.put("/:id", auth, updateUserService)
 
 export default router
