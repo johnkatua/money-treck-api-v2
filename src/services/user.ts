@@ -41,7 +41,7 @@ export const updateUserService = async (req: CustomRequest, res: Response) => {
     const avatar = req.file?.originalname
 
 
-    const userData: Partial<IUser> = {
+    const userData = {
       currency, id, avatar
     }
 
