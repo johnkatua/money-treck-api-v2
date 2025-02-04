@@ -8,9 +8,9 @@ import { getUser, updateUserService } from "../services/user";
 const router = Router();
 
 router.post("/register", async (req, res): Promise<any> => {
-  const { name, email, password } = req.body;
+  const { name, email, password, phoneNumber, currency, avatar } = req.body;
   const userData: Partial<IUser> = {
-    name, email, password
+    name, email, password, phoneNumber, currency, avatar
   }
 
   const registeredUser = await registerUser(userData)

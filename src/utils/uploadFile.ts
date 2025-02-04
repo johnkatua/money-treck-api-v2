@@ -8,7 +8,7 @@ const upload = multer({
   storage: multerS3({
     s3,
     bucket: process.env.AWS_S3_BUCKET_NAME!,
-    acl: 'public-read', // The file is publicly accessible
+    // acl: 'public-read', // The file is publicly accessible
     key: function (req, file, cb) {
       cb(null, `avatars/${Date.now()}-${file.originalname}`)
     }

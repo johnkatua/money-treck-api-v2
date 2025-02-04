@@ -9,7 +9,7 @@ export interface IUser extends Document {
   password: string
   phoneNumber: string,
   avatar?: string,
-  currency?: string
+  currency?: string,
   tokens: {
     token: string
   } []
@@ -32,9 +32,9 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>({
     type: String, required: true
   },
   password: { type: String, required: true },
-  phoneNumber: { type: String },
-  avatar: { type: String },
-  currency: { type: String },
+  phoneNumber: { type: String, required: true },
+  avatar: { type: String, required: true },
+  currency: { type: String, required: true },
   tokens: [{ token: { type: String, required: true } }],
 })
 

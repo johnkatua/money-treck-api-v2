@@ -27,39 +27,32 @@ export const getUser = async (req: CustomRequest, res: Response) => {
   }
 }
 
+interface S3File extends Express.Multer.File {
+  location?: string; // This property exists in multer-s3 uploads
+  key?: string;
+}
+
 export const updateUserService = async (req: CustomRequest, res: Response) => {
   try {
-    let results = uploadAvatar(req, res, async (err) => {
+    uploadAvatar(req, res, async (err) => {
       if (err) {
-        return res.status(500).json({
-          msg: `Error uploading file to s3 ${err}`
-        })
+        return res.status(500).json({ msg: `Error uploading file to s3 ${err}` });
       }
-    })
 
-    console.log({ results })
-    const { currency } = req.body;
-    const id = req.user?._id;
-    const avatar = req.file?.originalname
+      const { currency } = req.body;
+      const id = req.user?._id;
 
+      
+      
+      const avatar = (req.file as S3File)?.location; // ✅ Type assertion to avoid TS errors
 
-    const userData = {
-      currency, id, avatar
-    }
+      const userData = { currency, id, avatar };
+      const data = await updateUser(userData);
 
-    const data = await updateUser(userData)
-
-    res.status(200).json({
-      msg: "User updated successfully",
-      data
-    })
-
-
+      res.status(200).json({ msg: "User updated successfully", data });
+    });
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
-    res.status(500).json({
-      msg: "Failed to update user",
-      error: errorMessage
-    })
+    res.status(500).json({ msg: "Failed to update user", error: errorMessage });
   }
-}
+};
