@@ -14,21 +14,6 @@ import "./cronJobs/subscriptionExpiry"
 const app = express();
 
 const port = process.env.PORT || 8000;
-const token = process.env.NGROK_TOKEN;
-
-(async function () {
-  console.log("Initializing Ngrok tunnel...")
-
-  const url = await ngrok.connect({
-    proto: "http",
-    authtoken: token,
-    hostname: "money-treck",
-    addr: port
-  })
-
-  console.log(`Listening on url ${url}`);
-  console.log("Ngrok tunnel initialized!");
-})()
 
 // Express Middlewares
 app.use(express.json())
