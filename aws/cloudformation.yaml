@@ -18,7 +18,7 @@ Resources:
             Resource: !Sub "arn:aws:s3:::money-treck/*"
 
   S3PublicAccessBlock:
-    Type: "AWS::S3::Bucket PublicAccessBlockConfiguration"
+    Type: "AWS::S3::BucketPublicAccessBlock"
     Properties:
       Bucket: !Ref S3Bucket
       BlockPublicAcls: false
