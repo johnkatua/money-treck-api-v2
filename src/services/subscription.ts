@@ -25,7 +25,13 @@ export const create = async (req: CustomRequest, res: Response) => {
     endDate.setDate(endDate.getDate() + durationInDays)
 
     const subscriptionData: Partial<SubscriptionRequestBody> = {
-      user_id, planName, price, durationInDays, endDate, MerchantRequestID, CheckoutRequestID
+      user_id,
+      planName,
+      price,
+      durationInDays,
+      endDate,
+      merchantRequestID: MerchantRequestID,
+      checkoutRequestID: CheckoutRequestID
     }
 
     const data = await createSubscription(subscriptionData);
