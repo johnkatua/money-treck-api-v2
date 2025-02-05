@@ -11,35 +11,31 @@ export const create = async (req: CustomRequest, res: Response) => {
 
     const results = await processMpesaPayment(price, user_id!);
 
-    if (!results) {
-      return res.status(400).json({
-        msg: "Failed to process payment"
+    if (results) {
+      const { MerchantRequestID, CheckoutRequestID  } = results;
+  
+      const endDate = new Date();
+      endDate.setDate(endDate.getDate() + durationInDays)
+  
+      const subscriptionData: Partial<SubscriptionRequestBody> = {
+        user_id,
+        planName,
+        price,
+        durationInDays,
+        endDate,
+        merchantRequestID: MerchantRequestID,
+        checkoutRequestID: CheckoutRequestID
+      }
+  
+      const data = await createSubscription(subscriptionData);
+  
+      res.status(201).json({
+        msg: "Subscription created successfully",
+        data
       })
     }
 
-    console.log({ results })
 
-    const { MerchantRequestID, CheckoutRequestID  } = results;
-
-    const endDate = new Date();
-    endDate.setDate(endDate.getDate() + durationInDays)
-
-    const subscriptionData: Partial<SubscriptionRequestBody> = {
-      user_id,
-      planName,
-      price,
-      durationInDays,
-      endDate,
-      merchantRequestID: MerchantRequestID,
-      checkoutRequestID: CheckoutRequestID
-    }
-
-    const data = await createSubscription(subscriptionData);
-
-    res.status(201).json({
-      msg: "Subscription created successfully",
-      data
-    })
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
     res.status(500).json({
