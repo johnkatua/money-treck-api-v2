@@ -7,13 +7,17 @@ export const mpesaCallbackService = async (req: CustomRequest, res: Response) =>
   try {
     const { Body } = req.body;
 
-    // console.log({ Body})
-    console.log({ ResultCode: Body.stkCallback.ResultCode, CallbackMetadata: Body.stkCallback.CallbackMetadata })
+    const { stkCallback: { ResultCode, MerchantRequestID } } = Body;
 
-    if (Body.stkCallback.ResultCode === 0) {
-      const paymentId = Body.stkCallback.CallbackMetadata.Item[0].Value;
-      await mpesaCallback(paymentId);
+    if (ResultCode !== 0) {
+      res.status(400).json({
+        msg: "Payment failed",
+        data: Body
+      })
+      return;
     }
+
+    await mpesaCallback(MerchantRequestID);
 
     res.status(200).json({
       msg: "Payment processed successfully",
