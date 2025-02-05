@@ -19,7 +19,7 @@ export const processMpesaPayment = async (amount: number, paymentId: string) => 
       {
         BusinessShortCode: MPESA_SHORTCODE,
         Password: MPESA_PASSWORD,
-        Timestamp: timestamp,
+        Timestamp: "20250205013729",
         TransactionType: 'CustomerPayBillOnline',
         Amount: amount,
         PartyA: 254795029709,

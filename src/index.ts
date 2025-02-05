@@ -32,7 +32,6 @@ app.get("/healthcheck", (req: Request, res: Response) => {
   res.send('API healthcheck!')
 })
 
-
 app.listen(port, () => {
   console.log(`Server running on port: ${port}`)
 })

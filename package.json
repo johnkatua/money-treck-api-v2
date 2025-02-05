@@ -5,7 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "env-cmd -f ./.env nodemon src/index.ts",
-    "start:ngrok": "env-cmd -f ./.env nodemon src/ngrok-runner.ts | ngrok http 8002",
+    "start:ngrok": "env-cmd -f ./.env ts-node src/ngrok-runner.ts",
     "build": "tsc",
     "serve": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
