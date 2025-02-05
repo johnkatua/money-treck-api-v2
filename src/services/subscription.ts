@@ -9,7 +9,7 @@ export const create = async (req: CustomRequest, res: Response) => {
     const { planName, price, durationInDays } = req.body
     const user_id = req.user?._id;
 
-    const results = await processMpesaPayment(price, user_id!);
+    const results = await processMpesaPayment(price);
 
     if (results) {
       const { MerchantRequestID, CheckoutRequestID  } = results;
