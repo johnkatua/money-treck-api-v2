@@ -5,7 +5,7 @@ import { generateTimestamp } from "./generateTimestamp";
 
 
 
-export const processMpesaPayment = async (amount: number, paymentId: string) => {
+export const processMpesaPayment = async (amount: number) => {
   try {
     const token = await generateMpesaToken();
 
@@ -26,7 +26,7 @@ export const processMpesaPayment = async (amount: number, paymentId: string) => 
         PartyB: MPESA_SHORTCODE,
         PhoneNumber: 254795029709,
         CallBackURL: `${BASE_URL}/api/payments/mpesa/callback`,
-        AccountReference: paymentId,
+        AccountReference: "Money Treck Solutions",
         TransactionDesc: 'Payment for Subscription'
       },
       {
