@@ -8,9 +8,9 @@ export const create = async (req: CustomRequest, res: Response) => {
   try {
     const { planName, price, durationInDays } = req.body
     const user_id = req.user?._id;
-    const res = await processMpesaPayment(price, user_id!)
+    const results = await processMpesaPayment(price, user_id!)
 
-    // console.log(res)
+    console.log(results)
 
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + durationInDays)

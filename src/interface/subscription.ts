@@ -6,7 +6,7 @@ export interface ISubscription extends Document {
   price: number;
   startDate: Date;
   endDate: Date;
-  status: "Active" | "Expired" | "Cancelled";
+  status: "Active" | "Expired" | "Cancelled" | "Pending";
 }
 
 // Request body for subscription
