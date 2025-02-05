@@ -7,7 +7,7 @@ const subscriptionSchema = new Schema<ISubscription>({
   price: { type: Number, required: true },
   startDate: { type: Date, default: Date.now },
   endDate: { type: Date, required: true },
-  status: { type: String, enum: ["Active", "Expired", "Cancelled"], default: "Active" }
+  status: { type: String, enum: ["Active", "Expired", "Cancelled", "Pending"], default: "Pending" }
 }, { timestamps: true })
 
 export default model<ISubscription>('Subscription', subscriptionSchema)
