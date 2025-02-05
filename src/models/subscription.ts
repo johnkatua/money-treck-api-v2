@@ -7,6 +7,8 @@ const subscriptionSchema = new Schema<ISubscription>({
   price: { type: Number, required: true },
   startDate: { type: Date, default: Date.now },
   endDate: { type: Date, required: true },
+  merchantRequestID: { type: String, required: true },
+  checkoutRequestID: { type: String, required: true },
   status: { type: String, enum: ["Active", "Expired", "Cancelled", "Pending"], default: "Pending" }
 }, { timestamps: true })
 

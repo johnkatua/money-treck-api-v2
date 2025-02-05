@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { CustomRequest } from "../middleware/auth";
-import { ISubscription, SubscriptionRequestBody } from "../interface/subscription";
+import { SubscriptionRequestBody } from "../interface/subscription";
 import { cancelSubscription, createSubscription, getUserSubscriptions } from "../controllers/subscription";
 import { processMpesaPayment } from "../utils/processMpesaPayment";
 
@@ -8,15 +8,24 @@ export const create = async (req: CustomRequest, res: Response) => {
   try {
     const { planName, price, durationInDays } = req.body
     const user_id = req.user?._id;
-    const results = await processMpesaPayment(price, user_id!)
 
-    console.log(results)
+    const results = await processMpesaPayment(price, user_id!);
+
+    if (!results) {
+      return res.status(400).json({
+        msg: "Failed to process payment"
+      })
+    }
+
+    console.log({ results })
+
+    const { MerchantRequestID, CheckoutRequestID  } = results;
 
     const endDate = new Date();
     endDate.setDate(endDate.getDate() + durationInDays)
 
     const subscriptionData: Partial<SubscriptionRequestBody> = {
-      user_id, planName, price, durationInDays, endDate
+      user_id, planName, price, durationInDays, endDate, MerchantRequestID, CheckoutRequestID
     }
 
     const data = await createSubscription(subscriptionData);

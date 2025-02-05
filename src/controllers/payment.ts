@@ -1,9 +1,9 @@
-import PaymentModel from "../models/payment"
+import SubscriptionModel from "../models/subscription"
 
 export const mpesaCallback = async (paymentId: string) => {
   try {
-    const data = await PaymentModel.findByIdAndUpdate(paymentId, {
-      paymentStatus: 'Completed'
+    const data = await SubscriptionModel.findByIdAndUpdate({ user_id: paymentId}, {
+      status: 'Active'
     })
     return { data, success: true }
   } catch (error) {

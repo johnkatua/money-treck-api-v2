@@ -15,4 +15,5 @@ const port = process.env.PORT || 8000;
 
   console.log(`Listening on url ${url.url()}`);
   console.log("Ngrok tunnel initialized!");
+  process.stdin.resume();
 })()

@@ -4,6 +4,6 @@ import { mpesaCallbackService } from "../services/payment";
 
 const router: Router = Router();
 
-router.post("/mpesa/callback", auth, mpesaCallbackService)
+router.post("/mpesa/callback", mpesaCallbackService)
 
 export default router;

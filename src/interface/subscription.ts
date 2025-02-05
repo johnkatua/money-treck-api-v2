@@ -7,6 +7,8 @@ export interface ISubscription extends Document {
   startDate: Date;
   endDate: Date;
   status: "Active" | "Expired" | "Cancelled" | "Pending";
+  merchantRequestID: string,
+  checkoutRequestID: string
 }
 
 // Request body for subscription
@@ -15,5 +17,7 @@ export interface SubscriptionRequestBody {
   planName: "Monthly" | "Yearly",
   price: number,
   durationInDays: number,
-  endDate: Date
+  endDate: Date,
+  merchantRequestID: string,
+  checkoutRequestID: string
 }

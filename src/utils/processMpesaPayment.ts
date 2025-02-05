@@ -25,7 +25,7 @@ export const processMpesaPayment = async (amount: number, paymentId: string) => 
         PartyA: 254795029709,
         PartyB: MPESA_SHORTCODE,
         PhoneNumber: 254795029709,
-        CallBackURL: `${BASE_URL}/mpesa/callback`,
+        CallBackURL: `${BASE_URL}/api/payments/mpesa/callback`,
         AccountReference: paymentId,
         TransactionDesc: 'Payment for Subscription'
       },

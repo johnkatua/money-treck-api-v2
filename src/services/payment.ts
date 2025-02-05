@@ -3,8 +3,12 @@ import { mpesaCallback } from "../controllers/payment";
 import { CustomRequest } from "../middleware/auth";
 
 export const mpesaCallbackService = async (req: CustomRequest, res: Response) => {
+  console.log("Mpesa callback service called", req.body)
   try {
     const { Body } = req.body;
+
+    // console.log({ Body})
+    console.log({ ResultCode: Body.stkCallback.ResultCode, CallbackMetadata: Body.stkCallback.CallbackMetadata })
 
     if (Body.stkCallback.ResultCode === 0) {
       const paymentId = Body.stkCallback.CallbackMetadata.Item[0].Value;
