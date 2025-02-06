@@ -30,6 +30,6 @@ router.post("/login", async (req, res): Promise<any> => {
 });
 
 router.get("/me", auth, getUser)
-router.put("/user", auth, updateUserService)
+router.put("/", auth, updateUserService)
 
 export default router
