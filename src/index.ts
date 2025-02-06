@@ -30,8 +30,14 @@ app.use("/api/payments", paymentRouter);
 
 app.get("/healthcheck", (req: Request, res: Response) => {
   res.send('API healthcheck!')
-})
+});
 
-app.listen(port, () => {
-  console.log(`Server running on port: ${port}`)
-})
+(async () => {
+  try {
+    app.listen(port, () => {
+      console.log(`Server running on port: ${port}`)
+    });
+  } catch (error) {
+    console.error("Error starting server:", error);
+  }
+})()
