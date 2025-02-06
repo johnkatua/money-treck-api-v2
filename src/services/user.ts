@@ -38,14 +38,16 @@ export const updateUserService = async (req: CustomRequest, res: Response) => {
         return res.status(500).json({ msg: `Error uploading file to s3 ${err}` });
       }
 
-      const { currency } = req.body;
+      const { currency, phoneNumber, name, email } = req.body;
       const id = req.user?._id;
+
+      console.log("req.file", req.file);
 
       
       
       const avatar = (req.file as S3File)?.location;
 
-      const userData = { currency, id, avatar };
+      const userData = { currency, id, avatar, phoneNumber, name, email };
       const data = await updateUser(userData);
 
       res.status(200).json({ msg: "User updated successfully", data });
