@@ -36,9 +36,7 @@ export const create = async (req: CustomRequest, res: Response) => {
 
 export const getAll = async (req: CustomRequest, res: Response) => {
   try {
-    const data = await getRevenues()
-
-    console.log({ data })
+    const data = await getRevenues();
 
     res.status(200).json({
       msg: "Revenues fetched successfully!",

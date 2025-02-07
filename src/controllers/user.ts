@@ -2,7 +2,6 @@ import User from "../models/user";
 import { IUser } from "../models/user";
 
 export const registerUser = async (user: Partial<IUser>) => {
-  console.log({ user })
   const { name, email, password, phoneNumber, currency, avatar } = user
   if (!name || !email || !password || !phoneNumber || !currency || !avatar) {
     return {

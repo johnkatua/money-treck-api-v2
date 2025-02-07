@@ -41,10 +41,6 @@ export const updateUserService = async (req: CustomRequest, res: Response) => {
       const { currency, phoneNumber, name, email } = req.body;
       const id = req.user?._id;
 
-      console.log("req.file", req.file);
-
-      
-      
       const avatar = (req.file as S3File)?.location;
 
       const userData = { currency, id, avatar, phoneNumber, name, email };
