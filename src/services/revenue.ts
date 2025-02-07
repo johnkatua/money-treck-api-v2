@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { createRevenue, getRevenues } from "../controllers/revenue";
+import { createRevenue, getRevenues, updateRevenue } from "../controllers/revenue";
 import { IRevenue } from "../interface/revenue";
 import { CustomRequest } from "../middleware/auth";
 
@@ -46,6 +46,29 @@ export const getAll = async (req: CustomRequest, res: Response) => {
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
     res.status(500).json({
       msg: "Failed to fetch revenues",
+      error: errorMessage
+    })
+  }
+}
+
+export const updateRevenueService = async (req: CustomRequest, res: Response) => {
+  try {
+    const { _id, name, amount, period } = req.body;
+
+    const revenueData: Partial<IRevenue> = {
+      _id, name, amount, period
+    }
+
+    const data = await updateRevenue(revenueData);
+
+    res.status(200).json({
+      msg: "Revenue updated successfully",
+      data
+    })
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : "Unknown error";
+    res.status(500).json({
+      msg: "Failed to update revenue",
       error: errorMessage
     })
   }
