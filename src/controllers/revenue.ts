@@ -28,3 +28,12 @@ export const updateRevenue = async (revenueData: Partial<IRevenue>) => {
     return { data: null, success: false, error }
   }
 }
+
+export const deleteRevenue = async (id: string) => {
+  try {
+    const data = await RevenueModel.findByIdAndDelete(id)
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+}
