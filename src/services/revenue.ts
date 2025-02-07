@@ -76,9 +76,9 @@ export const updateRevenueService = async (req: CustomRequest, res: Response) =>
 
 export const deleteRevenueService = async (req: CustomRequest, res: Response) => {
   try {
-    const { _id } = req.body;
+    const { id } = req.params;
 
-    const data = await deleteRevenue(_id);
+    const data = await deleteRevenue(id);
 
     res.status(200).json({
       msg: "Revenue deleted successfully",

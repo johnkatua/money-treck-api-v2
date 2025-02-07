@@ -31,9 +31,9 @@ export const updateRevenue = async (revenueData: Partial<IRevenue>) => {
   }
 }
 
-export const deleteRevenue = async (id: string) => {
+export const deleteRevenue = async (_id: string) => {
   try {
-    const data = await RevenueModel.findByIdAndDelete(id)
+    const data = await RevenueModel.findByIdAndDelete(_id)
     return { data, success: true }
   } catch (error) {
     return { data: null, success: false, error }
