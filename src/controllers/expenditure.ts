@@ -18,3 +18,14 @@ export const getExpenditures = async () => {
     return { data: null, success: false, error }
   }
 }
+
+export const updateExpenditure = async (expenditureData: Partial<IExpenditure>) => {
+  try {
+    const { _id } = expenditureData;
+    const data = await ExpenditureModel.findByIdAndUpdate
+      (_id, expenditureData, { new: true })
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+}
