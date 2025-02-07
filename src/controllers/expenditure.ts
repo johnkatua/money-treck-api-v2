@@ -29,3 +29,13 @@ export const updateExpenditure = async (expenditureData: Partial<IExpenditure>) 
     return { data: null, success: false, error }
   }
 }
+
+export const deleteExpenditure = async (id: string) => {
+  try {
+    const data = await ExpenditureModel.findByIdAndDelete
+      (id)
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+}
