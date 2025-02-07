@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { CustomRequest } from "../middleware/auth";
 import { IBudget } from "../interface/budget";
-import { createBudget, getBudgetById, getBudgets, updateBudget } from "../controllers/budget";
+import { createBudget, deleteBudget, getBudgetById, getBudgets, updateBudget } from "../controllers/budget";
 
 export const create = async (req: CustomRequest, res: Response) => {
   try {
@@ -89,6 +89,30 @@ export const updateBudgetService = async (req: CustomRequest, res: Response) => 
     res.status(500).json({
       msg: "Failed to update budget",
       error: errorMessage
+    })
+  }
+}
+
+export const deleteBudgetService = async (req: CustomRequest, res: Response): Promise<any> => {
+  try {
+    const { id } = req.params;
+
+    const data = await deleteBudget(id)
+
+    if (!data) {
+      return res.status(404).json({
+        msg: "Budget not found"
+      })
+    }
+
+    res.status(200).json({
+      msg: "Budget deleted",
+      data
+    })
+  } catch (error: any) {
+    res.status(500).json({
+      msg: "Failed to delete budget",
+      error: error.message
     })
   }
 }
