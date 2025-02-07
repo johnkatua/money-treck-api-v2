@@ -40,4 +40,4 @@ app.get("/healthcheck", (req: Request, res: Response) => {
   } catch (error) {
     console.error("Error starting server:", error);
   }
-})()
+})();

@@ -18,3 +18,13 @@ export const getRevenues = async () => {
     return { data: null, success: false, error }
   }
 }
+
+export const updateRevenue = async (revenueData: Partial<IRevenue>) => {
+  try {
+    const { _id } = revenueData;
+    const data = await RevenueModel.findByIdAndUpdate(_id, revenueData, { new: true })
+    return { data, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+}
