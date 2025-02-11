@@ -75,9 +75,10 @@ export const deleteExpenditureService = async (req: CustomRequest, res: Response
     const data = await deleteExpenditure(id)
 
     if (!data) {
-      return res.status(404).json({
+      res.status(404).json({
         msg: "Expenditure not found"
       })
+      return;
     }
 
     res.status(200).json({
