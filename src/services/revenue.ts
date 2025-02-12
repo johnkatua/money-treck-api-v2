@@ -91,4 +91,4 @@ export const deleteRevenueService = async (req: CustomRequest, res: Response) =>
       error: errorMessage
     })
   }
-}
+};

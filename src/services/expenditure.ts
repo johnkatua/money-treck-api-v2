@@ -46,11 +46,11 @@ export const getAll = async (req: CustomRequest, res: Response) => {
 
 export const updateExpenditureService = async (req: CustomRequest, res: Response) => {
   try {
-    const { name, amount, budget_id, id } = req.body;
+    const { name, amount, budget_id, _id } = req.body;
     const user_id = req.user?._id; // user_id retrieved from auth token
 
     const expenditureData: Partial<IExpenditure> = {
-      name, amount, budget_id, user_id
+      name, amount, budget_id, user_id, _id
     }
 
     const data = await updateExpenditure(expenditureData);
