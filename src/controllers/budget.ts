@@ -11,10 +11,15 @@ export const createBudget = async (budgetData: Partial<IBudget>) => {
   }
 }
 
-export const getBudgets = async () => {
+export const getBudgets = async (page: number = 1, limit: number = 5) => {
   try {
-    const data = await BudgetModel.find();
-    return { data, success: true }
+    const skip = (page - 1) * limit;
+    const data = await BudgetModel.find()
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit)
+    const total = await BudgetModel.countDocuments();
+    return { data, total, page, limit, success: true }
   } catch (error) {
     return { data: null, success: false, error }
   }
