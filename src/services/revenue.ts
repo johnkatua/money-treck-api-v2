@@ -36,11 +36,14 @@ export const create = async (req: CustomRequest, res: Response) => {
 
 export const getAll = async (req: CustomRequest, res: Response) => {
   try {
-    const data = await getRevenues();
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    
+    const data = await getRevenues(page, limit);
 
     res.status(200).json({
       msg: "Revenues fetched successfully!",
-      data
+      ...data
     })
   } catch (error) {
     const errorMessage = error instanceof Error ? error.message : "Unknown error";
