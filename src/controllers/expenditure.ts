@@ -10,10 +10,15 @@ export const createExpenditure = async (expenditureData: Partial<IExpenditure>) 
   }
 }
 
-export const getExpenditures = async () => {
+export const getExpenditures = async (page: number = 1, limit: number = 5) => {
   try {
-    const data = await ExpenditureModel.find();
-    return { data, success: true }
+    const skip = (page - 1) * limit;
+    const data = await ExpenditureModel.find()
+      .sort({ createdAt: -1 }) // sort by the latest revenue first
+      .skip(skip)
+      .limit(limit)
+    const total = await ExpenditureModel.countDocuments()
+    return { data, total, page, limit, success: true }
   } catch (error) {
     return { data: null, success: false, error }
   }
