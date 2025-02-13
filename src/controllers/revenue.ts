@@ -10,10 +10,16 @@ export const createRevenue = async (revenueData: Partial<IRevenue>) => {
   }
 }
 
-export const getRevenues = async () => {
+export const getRevenues = async (page: number = 1, limit: number = 5) => {
   try {
+    const skip = (page - 1) * limit;
     const data = await RevenueModel.find()
-    return { data, success: true }
+      .sort({ createdAt: -1 }) // sort by the latest revenue first
+      .skip(skip)
+      .limit(limit)
+    
+    const total = await RevenueModel.countDocuments() // total number of documents
+    return { data, total, page, limit, success: true }
   } catch (error) {
     return { data: null, success: false, error }
   }
