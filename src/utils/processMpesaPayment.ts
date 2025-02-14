@@ -1,9 +1,6 @@
 import axios from "axios";
-import { generateMpesaToken } from "./generateMpesaToken"
-import PaymentModel from "../models/payment";
+import { generateMpesaToken } from "./generateMpesaToken";
 import { generateTimestamp } from "./generateTimestamp";
-
-
 
 export const processMpesaPayment = async (amount: number) => {
   try {
