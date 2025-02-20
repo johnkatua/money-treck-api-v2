@@ -18,5 +18,3 @@ export const generatePaypalToken = async () => {
     console.error(error);
   }
 };
-
-generatePaypalToken();
