@@ -1,6 +1,7 @@
 import Revenue from "../models/revenue";
 import Expenditure from "../models/expenditure";
 import Budget from "../models/budget";
+import { format } from "morgan";
 
 export const getFinancialOverview = async () => {
   try {
@@ -53,6 +54,24 @@ export const getBudgetVsExpense = async () => {
     ])
 
     return { data: budgets, success: true }
+  } catch (error) {
+    return { data: null, success: false, error }
+  }
+};
+
+export const getRevenueTrends = async () => {
+  try {
+    const data = await Revenue.aggregate([
+      {
+        $group: {
+          _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+          total: { $sum: "$amount" }
+        }
+      },
+      { $sort: { _id: 1 }}
+    ])
+
+    return { data, success: true }
   } catch (error) {
     return { data: null, success: false, error }
   }
