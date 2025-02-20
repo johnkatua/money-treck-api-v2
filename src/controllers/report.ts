@@ -2,6 +2,7 @@ import Revenue from "../models/revenue";
 import Expenditure from "../models/expenditure";
 import Budget from "../models/budget";
 import { format } from "morgan";
+import budget from "../models/budget";
 
 export const getFinancialOverview = async () => {
   try {
@@ -32,9 +33,15 @@ export const getBudgetVsExpense = async () => {
     const budgets = await Budget.aggregate([
       {
         $lookup: {
-          from: "expenditure",
-          localField: "_id",
-          foreignField: "budgetId",
+          from: "expenditures",
+          let: { budgetId: "$_id" },
+          pipeline: [
+            {
+              $match: {
+                $expr: { $eq: ["$budget_id", { $toString: "$$budgetId"}]}
+              }
+            }
+          ],
           as: "expenses"
         }
       },
@@ -45,7 +52,7 @@ export const getBudgetVsExpense = async () => {
           totalExpenses: { $sum: "$expenses.amount" },
           utilizationRate: {
             $multiply: [
-              { $divide: [{ $sum: "expenses.amount" }, "$amount"] },
+              { $divide: [{ $sum: "$expenses.amount" }, "$amount"] },
               100
             ]
           }
