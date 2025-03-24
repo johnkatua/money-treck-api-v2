@@ -5,4 +5,4 @@ COPY package.json package-lock.json /opt/app/
 RUN npm install
 COPY . .
 EXPOSE 8002
-CMD [ "npm", "start" ]
+CMD [ "npm", "start:dev" ]
