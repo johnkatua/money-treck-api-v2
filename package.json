@@ -5,6 +5,7 @@
   "main": "src/index.ts",
   "scripts": {
     "start": "env-cmd -f ./.env nodemon src/index.ts",
+    "start:dev": "env-cmd -f ./dev.env nodemon src/index.ts",
     "start:ngrok": "env-cmd -f ./.env ts-node src/ngrok-runner.ts",
     "build": "tsc",
     "serve": "node dist/index.js",

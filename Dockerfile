@@ -4,5 +4,5 @@ WORKDIR /opt/app
 COPY package.json package-lock.json /opt/app/
 RUN npm install
 COPY . .
-EXPOSE 3000
+EXPOSE 8002
 CMD [ "npm", "start" ]
