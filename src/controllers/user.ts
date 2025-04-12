@@ -4,7 +4,7 @@ import jwt from "jsonwebtoken";
 
 const generateAuthToken = async (user: IUser) => { 
   const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY as string, {
-    expiresIn: '7d'
+    expiresIn: process.env.JWT_EXPIRATION
   })
   return token
 };
