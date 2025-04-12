@@ -6,9 +6,6 @@ const generateAuthToken = async (user: IUser) => {
   if (!user) {
     return null
   }
-  console.log({
-    expiresIn: process.env.JWT_EXPIRATION,
-  })
   const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY as string, {
     expiresIn: process.env.JWT_EXPIRATION
   });
