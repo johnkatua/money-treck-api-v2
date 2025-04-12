@@ -32,11 +32,13 @@ export const registerUser = async (user: Partial<IUser>) => {
   await newUser.save()
 
   const token = await generateAuthToken(user as IUser)  
+
   if (!token) {
     return {
       msg: "Unable to generate token."
     }
   }
+  
   return {
     user: newUser,
     expiresIn: process.env.JWT_EXPIRATION,
