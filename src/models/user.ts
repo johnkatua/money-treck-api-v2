@@ -1,8 +1,7 @@
-import { Schema, model, Document, Model, HydratedDocument, ObjectId } from "mongoose";
+import { Schema, model, Model, HydratedDocument } from "mongoose";
 import { IUser } from "../interface/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-
 
 export interface IUserMethods {
   generateAuthToken(): Promise<string>
