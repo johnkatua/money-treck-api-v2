@@ -1,5 +1,13 @@
 import User from "../models/user";
-import { IUser } from "../models/user";
+import { IUser } from "../interface/user";
+import jwt from "jsonwebtoken";
+
+const generateAuthToken = async (user: IUser) => { 
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY as string, {
+    expiresIn: '7d'
+  })
+  return token
+};
 
 export const registerUser = async (user: Partial<IUser>) => {
   const { name, email, password, phoneNumber, currency, avatar } = user
@@ -19,7 +27,7 @@ export const registerUser = async (user: Partial<IUser>) => {
   const newUser = new User({ name, email, password, phoneNumber, currency, avatar })
   await newUser.save()
 
-  const token = await newUser.generateAuthToken()
+  const token = await generateAuthToken(user as IUser)  
   return {
     user: newUser,
     token
@@ -39,7 +47,7 @@ export const loginUser = async (user: Partial<IUser>) => {
     return null
   }
 
-  const token = await existingUser.generateAuthToken()
+  const token = await generateAuthToken(user as IUser)
 
   return {
     user: existingUser,
