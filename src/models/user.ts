@@ -3,16 +3,20 @@ import { IUser } from "../interface/user";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-export interface IUserMethods {
-  generateAuthToken(): Promise<string>
-  toJSON(): IUser
+// export interface IUserMethods {
+//   generateAuthToken(): Promise<string>
+//   toJSON(): IUser
+// }
+
+// interface UserModel extends Model<IUser, {}, IUserMethods> {
+//   findByCredentials(email: string, password: string): Promise<HydratedDocument<IUser, IUserMethods>>
+// }
+
+interface UserModel extends Model<IUser, {}> {
+  findByCredentials(email: string, password: string): Promise<HydratedDocument<IUser>>
 }
 
-interface UserModel extends Model<IUser, {}, IUserMethods> {
-  findByCredentials(email: string, password: string): Promise<HydratedDocument<IUser, IUserMethods>>
-}
-
-const userSchema = new Schema<IUser, UserModel, IUserMethods>({
+const userSchema = new Schema<IUser, UserModel>({
   name: {
     type: String, required: true
   },
@@ -23,7 +27,7 @@ const userSchema = new Schema<IUser, UserModel, IUserMethods>({
   phoneNumber: { type: String },
   avatar: { type: String },
   currency: { type: String },
-  tokens: [{ token: { type: String, required: true } }],
+  // tokens: [{ token: { type: String, required: true } }],
 })
 
 userSchema.pre('save', async function (next) {
@@ -33,21 +37,21 @@ userSchema.pre('save', async function (next) {
   next()
 })
 
-userSchema.methods.generateAuthToken = async function () {
-  const user = this
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY as string)
-  user.tokens = user.tokens.concat({ token })
-  await user.save()
-  return token
-}
+// userSchema.methods.generateAuthToken = async function () {
+//   const user = this
+//   const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY as string)
+//   user.tokens = user.tokens.concat({ token })
+//   await user.save()
+//   return token
+// }
 
-userSchema.methods.toJSON = function () {
-  const user = this as IUser
-  const userObject = user.toObject()
-  delete userObject.password
-  delete userObject.tokens
-  return userObject
-}
+// userSchema.methods.toJSON = function () {
+//   const user = this as IUser
+//   const userObject = user.toObject()
+//   delete userObject.password
+//   delete userObject.tokens
+//   return userObject
+// }
 
 userSchema.statics.findByCredentials = async (email, password) => {
   const user = await User.findOne({ email })
