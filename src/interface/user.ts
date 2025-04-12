@@ -5,8 +5,8 @@ export interface IUser extends Document {
   name: string;
   email: string;
   password: string;
-  phoneNumber?: string;
+  phoneNumber: string;
   avatar?: string;
   currency?: string;
-  tokens: Array<{ token: string }>;
+  // tokens: Array<{ token: string }>;
 }
