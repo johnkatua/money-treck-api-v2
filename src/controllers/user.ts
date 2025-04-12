@@ -16,7 +16,7 @@ const generateAuthToken = async (user: IUser) => {
 };
 
 export const registerUser = async (user: Partial<IUser>) => {
-  const { name, email, password, phoneNumber, currency, avatar } = user
+  const { name, email, password, phoneNumber } = user
   if (!name || !email || !password || !phoneNumber) {
     return {
       msg: "Please provide all the required fields.",
@@ -41,11 +41,16 @@ export const registerUser = async (user: Partial<IUser>) => {
     }
   }
 
-  const newUser = new User({ name, email, password, phoneNumber, currency, avatar })
+  const newUser = new User({ name, email, password, phoneNumber })
   await newUser.save()
 
   return {
-    user: newUser,
+    user: {
+      name: newUser.name,
+      email: newUser.email,
+      phoneNumber: newUser.phoneNumber,
+      id: newUser._id,
+    },
     expiresIn: process.env.JWT_EXPIRATION,
     token
   }
