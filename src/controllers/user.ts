@@ -70,9 +70,15 @@ export const loginUser = async (user: Partial<IUser>) => {
   }
 
   const token = await generateAuthToken(user as IUser)
+  if (!token) {
+    return {
+      msg: "Unable to generate token."
+    }
+  }
 
   return {
     user: existingUser,
+    expiresIn: process.env.JWT_EXPIRATION,
     token
   }
 }
