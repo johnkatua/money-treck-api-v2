@@ -8,5 +8,4 @@ export interface IUser extends Document {
   phoneNumber: string;
   avatar?: string;
   currency?: string;
-  // tokens: Array<{ token: string }>;
 }
