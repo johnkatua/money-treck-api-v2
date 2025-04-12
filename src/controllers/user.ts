@@ -7,7 +7,8 @@ export const generateAuthToken = async (id: string) => {
     return null
   }
   const token = jwt.sign({ _id: id }, process.env.JWT_KEY as string, {
-    expiresIn: process.env.JWT_EXPIRATION
+    // expiresIn: process.env.JWT_EXPIRATION
+    expiresIn: "3600s"
   });
   return token
 };

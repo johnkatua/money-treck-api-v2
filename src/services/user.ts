@@ -57,7 +57,8 @@ export const refreshToken = async (req: CustomRequest, res: Response) => {
   }
   catch (error) {
     res.status(401).json({
-      msg: 'Authentication failed.'
+      msg: 'Authentication failed.',
+      error: error instanceof Error ? error.message : "Unknown error"
     })
   }
 }
