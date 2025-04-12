@@ -66,7 +66,7 @@ export const loginUser = async (user: Partial<IUser>) => {
     return null
   }
 
-  const token = await generateAuthToken(existingUser as IUser)
+  const token = await generateAuthToken(existingUser._id.toString())
   if (!token) {
     return {
       msg: "Unable to generate token."

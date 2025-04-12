@@ -40,6 +40,13 @@ export const refreshToken = async (req: CustomRequest, res: Response) => {
         msg: "Unable to generate token."
       })
     }
+
+    const user = await getUserById(id!);
+    if (!user) {
+      return res.status(401).json({
+        msg: "User not found."
+      })
+    }
     res.status(200).json({
       msg: "Token refreshed successfully",
       token,
