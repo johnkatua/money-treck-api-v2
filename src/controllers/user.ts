@@ -3,7 +3,10 @@ import { IUser } from "../interface/user";
 import jwt from "jsonwebtoken";
 
 const generateAuthToken = async (user: IUser) => { 
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY as string, {
+  if (!user) {
+    return null
+  }
+  const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY as string, {
     expiresIn: process.env.JWT_EXPIRATION
   })
   return token
@@ -11,9 +14,10 @@ const generateAuthToken = async (user: IUser) => {
 
 export const registerUser = async (user: Partial<IUser>) => {
   const { name, email, password, phoneNumber, currency, avatar } = user
-  if (!name || !email || !password || !phoneNumber || !currency || !avatar) {
+  if (!name || !email || !password || !phoneNumber) {
     return {
-      msg: "Please provide all the required fields."
+      msg: "Please provide all the required fields.",
+      success: false
     }
   }
 
@@ -28,8 +32,14 @@ export const registerUser = async (user: Partial<IUser>) => {
   await newUser.save()
 
   const token = await generateAuthToken(user as IUser)  
+  if (!token) {
+    return {
+      msg: "Unable to generate token."
+    }
+  }
   return {
     user: newUser,
+    expiresIn: process.env.JWT_EXPIRATION,
     token
   }
 }

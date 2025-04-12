@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { IUser } from "../models/user";
+import { IUser } from "../interface/user";
 import { loginUser, registerUser } from "../controllers/user";
 import auth from "../middleware/auth";
 import { getUser, updateUserService } from "../services/user";
@@ -14,6 +14,10 @@ router.post("/register", async (req, res): Promise<any> => {
   }
 
   const registeredUser = await registerUser(userData)
+
+  if (registeredUser.msg) {
+    return res.status(400).json(registeredUser)
+  }
 
   return res.status(201).json(registeredUser)
 })
