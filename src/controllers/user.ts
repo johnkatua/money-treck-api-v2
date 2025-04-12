@@ -2,11 +2,11 @@ import User from "../models/user";
 import { IUser } from "../interface/user";
 import jwt from "jsonwebtoken";
 
-const generateAuthToken = async (user: IUser) => {
-  if (!user) {
+export const generateAuthToken = async (id: string) => {
+  if (!id) {
     return null
   }
-  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY as string, {
+  const token = jwt.sign({ _id: id.toString() }, process.env.JWT_KEY as string, {
     expiresIn: process.env.JWT_EXPIRATION
   });
   return token

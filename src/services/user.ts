@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { getUserById, updateUser } from "../controllers/user";
+import { generateAuthToken, getUserById, updateUser } from "../controllers/user";
 import { CustomRequest } from "../middleware/auth";
 import { uploadAvatar } from "../utils/uploadFile";
 
@@ -27,6 +27,28 @@ export const getUser = async (req: CustomRequest, res: Response) => {
     res.status(500).json({
       msg: "Failed to fetch user",
       error: errorMessage
+    })
+  }
+}
+
+export const refreshToken = async (req: CustomRequest, res: Response) => {
+  try {
+    const id = req.user?._id;
+    const token = await generateAuthToken(id!);
+    if (!token) {
+      return res.status(401).json({
+        msg: "Unable to generate token."
+      })
+    }
+    res.status(200).json({
+      msg: "Token refreshed successfully",
+      token,
+      expiresIn: process.env.JWT_EXPIRATION,
+    })
+  }
+  catch (error) {
+    res.status(401).json({
+      msg: 'Authentication failed.'
     })
   }
 }
