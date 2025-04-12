@@ -2,11 +2,11 @@ import User from "../models/user";
 import { IUser } from "../interface/user";
 import jwt from "jsonwebtoken";
 
-const generateAuthToken = async (user: IUser) => { 
+const generateAuthToken = async (user: IUser) => {
   if (!user) {
     return null
   }
-  const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY as string, {
+  const token = jwt.sign({ _id: user._id.toString() }, process.env.JWT_KEY as string, {
     expiresIn: process.env.JWT_EXPIRATION
   });
   return token
@@ -28,9 +28,9 @@ export const registerUser = async (user: Partial<IUser>) => {
     }
   }
 
+  const newUser = new User({ name, email, password, phoneNumber })
   
-
-  const token = await generateAuthToken(user as IUser)  
+  const token = await generateAuthToken(newUser as IUser)  
 
   if (!token) {
     return {
@@ -38,7 +38,7 @@ export const registerUser = async (user: Partial<IUser>) => {
     }
   }
 
-  const newUser = new User({ name, email, password, phoneNumber })
+ 
   await newUser.save()
 
   return {
@@ -66,7 +66,7 @@ export const loginUser = async (user: Partial<IUser>) => {
     return null
   }
 
-  const token = await generateAuthToken(user as IUser)
+  const token = await generateAuthToken(existingUser as IUser)
   if (!token) {
     return {
       msg: "Unable to generate token."

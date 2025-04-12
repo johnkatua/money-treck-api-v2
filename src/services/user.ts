@@ -7,6 +7,8 @@ import { uploadAvatar } from "../utils/uploadFile";
 export const getUser = async (req: CustomRequest, res: Response) => {
   try {
     const id = req.user?._id;
+
+    console.log("User ID:", req.user);
   
     const data = await getUserById(id!);
 
