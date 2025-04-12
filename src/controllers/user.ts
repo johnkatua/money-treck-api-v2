@@ -6,7 +6,7 @@ export const generateAuthToken = async (id: string) => {
   if (!id) {
     return null
   }
-  const token = jwt.sign({ _id: id.toString() }, process.env.JWT_KEY as string, {
+  const token = jwt.sign({ _id: id }, process.env.JWT_KEY as string, {
     expiresIn: process.env.JWT_EXPIRATION
   });
   return token
@@ -30,7 +30,7 @@ export const registerUser = async (user: Partial<IUser>) => {
 
   const newUser = new User({ name, email, password, phoneNumber })
   
-  const token = await generateAuthToken(newUser as IUser)  
+  const token = await generateAuthToken(newUser._id.toString())  
 
   if (!token) {
     return {
