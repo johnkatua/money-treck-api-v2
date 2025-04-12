@@ -1,11 +1,12 @@
-import { ObjectId } from "mongoose";
+import { Document, ObjectId } from "mongoose";
 
-export interface IUser {
-  _id?: ObjectId,
-  id: string
-  name: string,
-  password: string,
-  phoneNumber: string,
-  avatar?: string,
-  currency?: string
+export interface IUser extends Document {
+  _id: ObjectId;
+  name: string;
+  email: string;
+  password: string;
+  phoneNumber?: string;
+  avatar?: string;
+  currency?: string;
+  tokens: Array<{ token: string }>;
 }
