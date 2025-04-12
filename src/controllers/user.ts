@@ -6,9 +6,12 @@ const generateAuthToken = async (user: IUser) => {
   if (!user) {
     return null
   }
+  console.log({
+    expiresIn: process.env.JWT_EXPIRATION,
+  })
   const token = jwt.sign({ _id: user._id }, process.env.JWT_KEY as string, {
     expiresIn: process.env.JWT_EXPIRATION
-  })
+  });
   return token
 };
 
@@ -28,8 +31,7 @@ export const registerUser = async (user: Partial<IUser>) => {
     }
   }
 
-  const newUser = new User({ name, email, password, phoneNumber, currency, avatar })
-  await newUser.save()
+  
 
   const token = await generateAuthToken(user as IUser)  
 
@@ -38,7 +40,10 @@ export const registerUser = async (user: Partial<IUser>) => {
       msg: "Unable to generate token."
     }
   }
-  
+
+  const newUser = new User({ name, email, password, phoneNumber, currency, avatar })
+  await newUser.save()
+
   return {
     user: newUser,
     expiresIn: process.env.JWT_EXPIRATION,
