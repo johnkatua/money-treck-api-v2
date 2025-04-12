@@ -77,7 +77,12 @@ export const loginUser = async (user: Partial<IUser>) => {
   }
 
   return {
-    user: existingUser,
+    user: {
+      name: existingUser.name,
+      email: existingUser.email,
+      phoneNumber: existingUser.phoneNumber,
+      id: existingUser._id,
+    },
     expiresIn: process.env.JWT_EXPIRATION,
     token
   }
