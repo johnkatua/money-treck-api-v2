@@ -24,7 +24,7 @@ const userSchema = new Schema<IUser, UserModel>({
     type: String, required: true
   },
   password: { type: String, required: true },
-  phoneNumber: { type: String },
+  phoneNumber: { type: String, required: true },
   avatar: { type: String },
   currency: { type: String },
   // tokens: [{ token: { type: String, required: true } }],
