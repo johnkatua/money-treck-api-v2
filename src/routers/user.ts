@@ -2,7 +2,7 @@ import { Router } from "express";
 import { IUser } from "../interface/user";
 import { loginUser, registerUser } from "../controllers/user";
 import auth from "../middleware/auth";
-import { getUser, updateUserService } from "../services/user";
+import { getUser, refreshToken, updateUserService } from "../services/user";
 // import auth, { CustomRequest } from "../middleware/auth";
 
 const router = Router();
@@ -35,5 +35,6 @@ router.post("/login", async (req, res): Promise<any> => {
 
 router.get("/me", auth, getUser)
 router.put("/", auth, updateUserService)
+router.get("/refresh-token", auth, refreshToken)
 
 export default router

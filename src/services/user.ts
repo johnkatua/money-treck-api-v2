@@ -36,16 +36,18 @@ export const refreshToken = async (req: CustomRequest, res: Response) => {
     const id = req.user?._id;
     const token = await generateAuthToken(id!);
     if (!token) {
-      return res.status(401).json({
+      res.status(401).json({
         msg: "Unable to generate token."
       })
+      return
     }
 
     const user = await getUserById(id!);
     if (!user) {
-      return res.status(401).json({
+      res.status(401).json({
         msg: "User not found."
       })
+      return
     }
     res.status(200).json({
       msg: "Token refreshed successfully",
