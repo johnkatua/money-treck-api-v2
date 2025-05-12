@@ -10,7 +10,6 @@ import reportRouter from "./routers/report";
 import revenueRouter from "./routers/revenue";
 import subscriptionRouter from "./routers/subscription";
 import userRouter from "./routers/user";
-import { generateMpesaToken } from "./utils/generateMpesaToken";
 
 const app = express();
 
@@ -38,7 +37,6 @@ app.get("/healthcheck", (req: Request, res: Response) => {
   try {
     app.listen(port, () => {
       console.log(`Server running on port: ${port}`)
-      generateMpesaToken()
     });
   } catch (error) {
     console.error("Error starting server:", error);

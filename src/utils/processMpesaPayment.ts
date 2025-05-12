@@ -8,23 +8,24 @@ export const processMpesaPayment = async (amount: number) => {
 
     const timestamp = generateTimestamp();
 
-    const { MPESA_SHORTCODE, MPESA_PASSWORD, BASE_URL } = process.env;
+    const { MPESA_SHORTCODE,  MPESA_PASSKEY, BASE_URL } = process.env;
+    const str = `${MPESA_SHORTCODE}${MPESA_PASSKEY}${timestamp}`
+    const password = Buffer.from(str).toString('base64')
 
     // Initiate Mpesa payment process -> M-Pesa Express Simulate
     const response = await axios.post(
-      // 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
       'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
       {
         BusinessShortCode: MPESA_SHORTCODE,
-        Password: MPESA_PASSWORD,
-        Timestamp: "20250205013729",
+        Password: password,
+        Timestamp: timestamp,
         TransactionType: 'CustomerPayBillOnline',
         Amount: amount,
         PartyA: 254795029709,
         PartyB: MPESA_SHORTCODE,
         PhoneNumber: 254795029709,
         CallBackURL: `${BASE_URL}/api/payments/mpesa/callback`,
-        AccountReference: "Money Treck Solutions",
+        AccountReference: "JICHEQUE BUDGET APP",
         TransactionDesc: 'Payment for Subscription'
       },
       {
@@ -32,7 +33,6 @@ export const processMpesaPayment = async (amount: number) => {
         Authorization: `Bearer ${token}`
       }}
     )
-
     return response.data
   } catch (error: any) {
     const errorMessage = error.response.data.errorMessage
