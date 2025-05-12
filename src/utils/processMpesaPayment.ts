@@ -12,7 +12,8 @@ export const processMpesaPayment = async (amount: number) => {
 
     // Initiate Mpesa payment process -> M-Pesa Express Simulate
     const response = await axios.post(
-      'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+      // 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
+      'https://api.safaricom.co.ke/mpesa/stkpush/v1/processrequest',
       {
         BusinessShortCode: MPESA_SHORTCODE,
         Password: MPESA_PASSWORD,
