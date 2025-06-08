@@ -8,4 +8,6 @@ export interface IUser extends Document {
   phoneNumber: string;
   avatar?: string;
   currency?: string;
+  role?: string;
+  is_subscribed?: boolean
 }
