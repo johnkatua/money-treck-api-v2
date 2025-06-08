@@ -6,6 +6,11 @@ interface UserModel extends Model<IUser, {}> {
   findByCredentials(email: string, password: string): Promise<HydratedDocument<IUser>>
 }
 
+enum RoleType {
+  Admin = 'admin',
+  User = 'user'
+}
+
 const userSchema = new Schema<IUser, UserModel>({
   name: {
     type: String, required: true
@@ -17,6 +22,8 @@ const userSchema = new Schema<IUser, UserModel>({
   phoneNumber: { type: String, required: true },
   avatar: { type: String },
   currency: { type: String },
+  role: { type: String, default: RoleType.User, enum: RoleType },
+  is_subscribed: { type: Boolean, default: false }
 })
 
 userSchema.pre('save', async function (next) {
