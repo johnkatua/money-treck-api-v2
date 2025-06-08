@@ -44,10 +44,12 @@ export const registerUser = async (user: Partial<IUser>) => {
 
   return {
     user: {
+      id: newUser._id,
       name: newUser.name,
       email: newUser.email,
       phoneNumber: newUser.phoneNumber,
-      id: newUser._id,
+      role: newUser.role,
+      subscribed: newUser.is_subscribed
     },
     expiresIn: process.env.JWT_EXPIRATION,
     token
@@ -76,10 +78,12 @@ export const loginUser = async (user: Partial<IUser>) => {
 
   return {
     user: {
+      id: existingUser._id,
       name: existingUser.name,
       email: existingUser.email,
       phoneNumber: existingUser.phoneNumber,
-      id: existingUser._id,
+      role: existingUser.role,
+      subscribed: existingUser.is_subscribed
     },
     expiresIn: process.env.JWT_EXPIRATION,
     token
