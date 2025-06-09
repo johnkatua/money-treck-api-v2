@@ -1,7 +1,5 @@
-import { Request, Response, NextFunction } from "express";
+import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
-import { ObjectId } from "mongoose";
-import { getUserById } from "../controllers/user";
 
 export interface CustomRequest extends Request {
   user?: {
@@ -25,13 +23,13 @@ const auth = async (req: CustomRequest, res: Response, next: NextFunction) => {
 
     req.user = decoded;
 
-    const { data } = await getUserById(req.user._id)
-    if (data?.role == 'user' && data.is_subscribed == false) {
-      res.status(401).json({
-        msg: 'Please check your subscription status'
-      })
-      return
-    }
+    // const { data } = await getUserById(req.user._id)
+    // if (data?.role == 'user' && data.is_subscribed == false) {
+    //   res.status(401).json({
+    //     msg: 'Please check your subscription status'
+    //   })
+    //   return
+    // }
     next()
   } catch (error) {
     res.status(401).json({

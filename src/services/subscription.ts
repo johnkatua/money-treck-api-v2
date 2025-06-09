@@ -1,13 +1,18 @@
 import { Request, Response } from "express";
-import { CustomRequest } from "../middleware/auth";
-import { SubscriptionRequestBody } from "../interface/subscription";
 import { cancelSubscription, createSubscription, getUserSubscriptions } from "../controllers/subscription";
+import { SubscriptionRequestBody } from "../interface/subscription";
+import { CustomRequest } from "../middleware/auth";
 import { processMpesaPayment } from "../utils/processMpesaPayment";
+import { getPlan } from "./plan";
 
 export const create = async (req: CustomRequest, res: Response) => {
   try {
-    const { planName, price, durationInDays } = req.body
+    const { plan_id, price, durationInDays } = req.body
     const user_id = req.user?._id;
+
+    const plan = await getPlan(plan_id)
+
+    console.log({ plan })
 
     const results = await processMpesaPayment(price);
 
@@ -19,8 +24,7 @@ export const create = async (req: CustomRequest, res: Response) => {
   
       const subscriptionData: Partial<SubscriptionRequestBody> = {
         user_id,
-        planName,
-        price,
+        plan_id,
         durationInDays,
         endDate,
         merchantRequestID: MerchantRequestID,

@@ -7,3 +7,5 @@ const router = Router()
 router.post("/", auth, createPlan)
 router.get("/", auth, getAllPlans)
 router.get("/:id", auth, getPlanById)
+
+export default router;

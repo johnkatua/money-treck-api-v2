@@ -1,5 +1,6 @@
 import { Request, Response } from "express"
 import Plan from "../models/plan"
+import { errorHandler } from "../utils/errorHandler"
 
 export const createPlan = async (req: Request, res: Response) => {
     try {
@@ -9,7 +10,7 @@ export const createPlan = async (req: Request, res: Response) => {
             msg: 'Plan created successfully'
         })
     } catch (error) {
-        const errMsg = error instanceof Error ? error.message : "Unknown error"
+        const errMsg = errorHandler(error)
         res.status(500).json({
             msg: errMsg
         })
@@ -33,9 +34,12 @@ export const getAllPlans = async (_req: Request, res: Response) => {
 export const getPlanById = async (req: Request, res: Response) => {
     try {
         const plan = await Plan.findById(req.params.id);
-        if (!plan) return res.status(404).json({
-            msg: 'Plan not found'
-        })
+        if (!plan) {
+            res.status(404).json({
+                msg: 'Plan not found'
+            })
+            return;
+        }
         res.status(200).json({
             data: plan
         })
