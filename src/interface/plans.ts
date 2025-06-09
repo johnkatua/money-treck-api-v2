@@ -8,5 +8,7 @@ export interface IPlan {
     price: number,
     billingCycle: BillingCycleTypes,
     features: Array<string>,
-    isActive: boolean
+    isActive: boolean,
+    createdAt: Date,
+    updatedAt: Date
 }
