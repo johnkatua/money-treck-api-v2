@@ -2,8 +2,7 @@ import { Document, ObjectId } from "mongoose";
 
 export interface ISubscription extends Document {
   user_id: ObjectId;
-  planName: "Monthly" | "Yearly";
-  price: number;
+  plan_id: ObjectId;
   startDate: Date;
   endDate: Date;
   status: "Active" | "Expired" | "Cancelled" | "Pending";
@@ -14,8 +13,7 @@ export interface ISubscription extends Document {
 // Request body for subscription
 export interface SubscriptionRequestBody {
   user_id: string,
-  planName: "Monthly" | "Yearly",
-  price: number,
+  plan_id: string,
   durationInDays: number,
   endDate: Date,
   merchantRequestID: string,

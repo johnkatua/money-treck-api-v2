@@ -9,7 +9,8 @@ const planSchema = new Schema<IPlan>({
     billingCycle: { type: String, enum: BillingCycleTypes },
     features: { type: [String] },
     isActive: { type: Boolean },
-    createdAt: { type: Date, default: Date.now() }
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date }
 })
 
 export default model<IPlan>('Plan', planSchema)
