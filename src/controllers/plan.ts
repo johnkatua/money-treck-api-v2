@@ -29,3 +29,20 @@ export const getAllPlans = async (_req: Request, res: Response) => {
         })
     }
 }
+
+export const getPlanById = async (req: Request, res: Response) => {
+    try {
+        const plan = await Plan.findById(req.params.id);
+        if (!plan) return res.status(404).json({
+            msg: 'Plan not found'
+        })
+        res.status(200).json({
+            data: plan
+        })
+    } catch (error) {
+        const errMsg = errorHandler(error);
+        res.status(500).json({
+            msg: errMsg
+        })
+    }
+}
