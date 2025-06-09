@@ -15,3 +15,17 @@ export const createPlan = async (req: Request, res: Response) => {
         })
     }
 }
+
+export const getAllPlans = async (_req: Request, res: Response) => {
+    try {
+        const plans = await Plan.find();
+        res.status(200).json({
+            data: plans
+        })
+    } catch (error) {
+        const errMsg = errorHandler(error)
+        res.status(500).json({
+            msg: errMsg
+        })
+    }
+}
