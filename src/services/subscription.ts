@@ -12,14 +12,23 @@ export const create = async (req: CustomRequest, res: Response) => {
 
     const plan = await getPlan(plan_id)
 
-    console.log({ plan })
+    if (plan) {
 
-    const results = await processMpesaPayment(price);
+      const results = await processMpesaPayment(plan?.price);
+
+      console.log({ results, plan })
+
 
     if (results) {
       const { MerchantRequestID, CheckoutRequestID  } = results;
   
       const endDate = new Date();
+      let durationInDays = 0;
+      if (plan.billingCycle == 'monthly') {
+        durationInDays = 31
+      } else {
+        durationInDays = 365
+      }
       endDate.setDate(endDate.getDate() + durationInDays)
   
       const subscriptionData: Partial<SubscriptionRequestBody> = {
@@ -31,13 +40,21 @@ export const create = async (req: CustomRequest, res: Response) => {
         checkoutRequestID: CheckoutRequestID
       }
   
-      const data = await createSubscription(subscriptionData);
+      const { data, success, error } = await createSubscription(subscriptionData);
+
+      if (!success) {
+        res.status(400).json({
+          msg: error
+        })
+        return
+      }
   
       res.status(201).json({
         msg: "Subscription created successfully",
         data
       })
     }
+  }
 
 
   } catch (error) {
