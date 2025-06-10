@@ -11,4 +11,6 @@ const subscriptionSchema = new Schema<ISubscription>({
   status: { type: String, enum: ["Active", "Expired", "Cancelled", "Pending"], default: "Pending" }
 }, { timestamps: true })
 
+subscriptionSchema.index({ user_id: 1, plan_id: 1}, { unique: true})
+
 export default model<ISubscription>('Subscription', subscriptionSchema)

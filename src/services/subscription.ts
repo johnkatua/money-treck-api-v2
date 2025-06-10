@@ -1,14 +1,31 @@
 import { Request, Response } from "express";
 import { cancelSubscription, createSubscription, getUserSubscriptions } from "../controllers/subscription";
-import { SubscriptionRequestBody } from "../interface/subscription";
+import { ISubscription, SubscriptionRequestBody } from "../interface/subscription";
 import { CustomRequest } from "../middleware/auth";
+import Subscription from "../models/subscription";
 import { processMpesaPayment } from "../utils/processMpesaPayment";
 import { getPlan } from "./plan";
 
 export const create = async (req: CustomRequest, res: Response) => {
   try {
-    const { plan_id, price, durationInDays } = req.body
+    const { plan_id } = req.body
     const user_id = req.user?._id;
+
+    if (user_id) {
+      const { data } = await getUserSubscriptions(user_id);
+
+      console.log({ data })
+
+      if (data) {
+        if (data.length > 0) {
+            res.status(400).json({
+            msg: 'Already have a subscription'
+          })
+          return
+        }
+      }
+    }
+
 
     const plan = await getPlan(plan_id)
 
@@ -104,5 +121,15 @@ export const cancelSubscriptionService = async (req: Request<{ id: string }>, re
       msg: "Failed to cancel subscription",
       error: error.message
     })
+  }
+}
+
+export const getSubscription = async (id: string) => {
+  try {
+    const subscription = await Subscription.findById(id).exec()
+    return subscription ? subscription.toObject() as ISubscription : null
+  } catch (error) {
+    console.error("Error fetching subscription:", error)
+    throw new Error(`Failed to fetch subscription`)
   }
 }
