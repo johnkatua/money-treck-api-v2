@@ -14,8 +14,6 @@ export const create = async (req: CustomRequest, res: Response) => {
     if (user_id) {
       const { data } = await getUserSubscriptions(user_id);
 
-      console.log({ data })
-
       if (data) {
         if (data.length > 0) {
             res.status(400).json({
@@ -32,8 +30,6 @@ export const create = async (req: CustomRequest, res: Response) => {
     if (plan) {
 
       const results = await processMpesaPayment(plan?.price);
-
-      console.log({ results, plan })
 
 
     if (results) {
@@ -129,7 +125,6 @@ export const getSubscription = async (id: string) => {
     const subscription = await Subscription.findById(id).exec()
     return subscription ? subscription.toObject() as ISubscription : null
   } catch (error) {
-    console.error("Error fetching subscription:", error)
     throw new Error(`Failed to fetch subscription`)
   }
 }
