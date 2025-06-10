@@ -3,7 +3,6 @@ import { mpesaCallback } from "../controllers/payment";
 import { CustomRequest } from "../middleware/auth";
 
 export const mpesaCallbackService = async (req: CustomRequest, res: Response) => {
-  console.log("Mpesa callback service called", req.body)
   try {
     const { Body } = req.body;
 
