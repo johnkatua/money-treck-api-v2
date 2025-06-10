@@ -1,8 +1,17 @@
 import SubscriptionModel from "../models/subscription"
 
-export const mpesaCallback = async (MerchantRequestID: string) => {
+export const mpesaCallback = async (MerchantRequestID: string, ResultCode: number) => {
+  console.log("Here", MerchantRequestID, ResultCode)
   try {
-    const data = await SubscriptionModel.findByIdAndUpdate({ merchantRequestID: MerchantRequestID}, {
+    if (ResultCode !== 0) {
+      console.log("There", ResultCode)
+      const res = await SubscriptionModel.findOneAndUpdate({ merchantRequestID: MerchantRequestID}, {
+        status: 'Cancelled'
+      })
+      console.log({ res })
+      return
+    }
+    const data = await SubscriptionModel.findOneAndUpdate({ merchantRequestID: MerchantRequestID}, {
       status: 'Active'
     })
     return { data, success: true }
