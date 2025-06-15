@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import morgan from "morgan";
 import "./cronJobs/subscriptionExpiry";
 import "./db";
+import { errorHandler } from "./middleware/error_handler";
 import budgetRouter from "./routers/budget";
 import expenditureRouter from "./routers/expenditure";
 import paymentRouter from "./routers/payment";
@@ -20,6 +21,7 @@ const port = process.env.PORT || 8000;
 app.use(express.json())
 app.use(cors())
 app.use(morgan(':method :url :status :res[content-length] - :response-time ms'))
+app.use(errorHandler)
 
 // Routes
 app.use("/api/users", userRouter);
