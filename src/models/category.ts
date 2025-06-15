@@ -1,7 +1,7 @@
-import { model, Schema } from "mongoose";
+import { Document, model, Schema } from "mongoose";
 import { ICategory } from "../interface/category";
 
-const categorySchema = new Schema<ICategory>({
+const categorySchema = new Schema<ICategory & Document>({
     name: { 
         type: String, 
         required: [true, "Name is required"], 
@@ -32,6 +32,6 @@ const categorySchema = new Schema<ICategory>({
 
 categorySchema.index({ user_id: 1, type: 1 })
 
-const Category = model<ICategory>('Category', categorySchema);
+const Category = model<ICategory & Document>('Category', categorySchema);
 
 export default Category
