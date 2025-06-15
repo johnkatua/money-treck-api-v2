@@ -1,9 +1,8 @@
-import { ObjectId } from "mongoose";
+import { Document } from "mongoose";
 
-export interface ICategory {
-    _id?: ObjectId,
-    user_id: ObjectId,
+export interface ICategory extends Document {
     name: string,
-    type: string,
+    user_id: string,
+    type: "Revenue" | "Expense",
     global?: Boolean
 }
