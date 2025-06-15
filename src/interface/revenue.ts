@@ -7,4 +7,9 @@ export interface IRevenue {
   amount: number,
   period: PeriodInterface,
   user_id: string,
+  start_date: Date,
+  end_date?: Date,
+  recurring?: Boolean,
+  category: string,
+  is_active?: Boolean
 }
