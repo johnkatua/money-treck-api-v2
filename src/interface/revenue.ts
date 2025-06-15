@@ -3,13 +3,13 @@ import { PeriodInterface } from "./period";
 
 export interface IRevenue {
   _id?: ObjectId,
+  category_id: ObjectId,
+  user_id: ObjectId,
   name: string,
   amount: number,
   period: PeriodInterface,
-  user_id: string,
   start_date: Date,
   end_date?: Date,
   recurring?: Boolean,
-  category: string,
   is_active?: Boolean
 }
