@@ -8,4 +8,8 @@ export class CategoryService {
         
         return await Category.create(data)
     }
+
+    async findAll(filter: Record<string, any> = {}) {
+        return await Category.find(filter).sort({ created: -1 })
+    }
 }
