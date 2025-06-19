@@ -15,9 +15,9 @@ export interface IRevenue extends Document {
   amount: number,
   period: PeriodInterface,
   start_date: Date,
-  recurring?: Boolean,
+  is_recurring: Boolean,
   is_active?: Boolean,
-  recurrence_pattern: {
+  recurrence_pattern?: {
     interval: RecurrenceInterval,
     end_date?: Date
   }
