@@ -1,20 +1,14 @@
 import { Document, ObjectId } from "mongoose";
-import { PeriodInterface } from "./period";
+import { RecurrenceInterval } from "./enums";
 
-export enum RecurrenceInterval {
-  Daily = "Daily",
-  Weekly = "Weekly",
-  Monthly = "Monthly",
-  Yearly = "Yearly"
-}
 
 export interface IRevenue extends Document {
   category_id: ObjectId,
   user_id: ObjectId,
   name: string,
   amount: number,
-  period: PeriodInterface,
-  start_date: Date,
+  period: RecurrenceInterval,
+  start_date?: Date,
   is_recurring: Boolean,
   is_active?: Boolean,
   recurrence_pattern?: {
