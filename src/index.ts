@@ -3,6 +3,7 @@ import express, { Request, Response } from "express";
 import morgan from "morgan";
 import "./cronJobs/subscriptionExpiry";
 import "./db";
+import { startCreateTransactionsFromRecurringJob } from "./jobs/transaction_from_revenue";
 import { errorHandler } from "./middleware/error_handler";
 import budgetRouter from "./routers/budget";
 import categoryRouter from "./routers/category";
@@ -48,3 +49,6 @@ app.get("/healthcheck", (_req: Request, res: Response) => {
     console.error("Error starting server:", error);
   }
 })();
+
+// Run background jobs
+startCreateTransactionsFromRecurringJob()
