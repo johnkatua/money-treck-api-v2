@@ -14,3 +14,9 @@ export enum TransactionType {
   Revenue = "Revenue",
   Expense = "Expense"
 }
+
+export enum TransactionStatus {
+  Approved = "Approved",
+  Pending = "Pending",
+  Cancelled = "Cancelled"
+}
