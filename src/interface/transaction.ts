@@ -6,7 +6,7 @@ export interface ITransaction extends Document {
     amount: number,
     type: String,
     name: String,
-    date: Date,
+    date?: Date,
     status: String,
     is_recurring: Boolean
 }
