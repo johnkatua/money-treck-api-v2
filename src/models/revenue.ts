@@ -14,7 +14,7 @@ const revenueSchema = new Schema<IRevenue>({
   period: { type: String, required: true, enum: Object.values(RecurrenceInterval) },
   user_id: { type: String, required: true },
   category_id: { type: String },
-  start_date: { type: String, default: Date.now },
+  start_date: { type: Date, default: Date.now },
   is_recurring: { type: Boolean, default: false },
   recurrence_pattern: {
     interval: {

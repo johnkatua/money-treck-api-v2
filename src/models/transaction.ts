@@ -10,7 +10,7 @@ const transactionSchema = new Schema<ITransaction>({
     name: { type: String, required: true },
     date: { type: String, default: Date.now },
     status: {  type: String, enum: Object.values(TransactionStatus) },
-    is_recurring: { type: Boolean, default: false }
+    is_recurring: { type: Boolean, default: true }
 }, { timestamps: true })
 
 export default model<ITransaction>('Transaction', transactionSchema)

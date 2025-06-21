@@ -8,7 +8,7 @@ export interface IRevenue extends Document {
   name: string,
   amount: number,
   period: RecurrenceInterval,
-  start_date?: Date,
+  start_date: Date,
   is_recurring: Boolean,
   is_active?: Boolean,
   recurrence_pattern?: {
