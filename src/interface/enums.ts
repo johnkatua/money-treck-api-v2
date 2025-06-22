@@ -20,3 +20,9 @@ export enum TransactionStatus {
   Pending = "Pending",
   Cancelled = "Cancelled"
 }
+
+export enum GoalStatus {
+  Active = "active",
+  Completed = "completed",
+  Archived = "archived"
+}
