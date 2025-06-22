@@ -38,3 +38,9 @@ export enum ChallengeType {
   Monthly = "Monthly",
   Custom = "Custom"
 }
+
+export enum ChallengeStatus {
+  Open = "Open",
+  Closed = "Closed",
+  InProgress = "InProgress"
+}
