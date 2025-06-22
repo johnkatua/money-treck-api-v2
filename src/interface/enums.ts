@@ -32,3 +32,9 @@ export enum CategoryType {
   Revenue = "Revenue",
   Expense = "Expense"
 }
+
+export enum ChallengeType {
+  Weekly = "Weekly",
+  Monthly = "Monthly",
+  Custom = "Custom"
+}
