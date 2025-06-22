@@ -8,8 +8,8 @@ const challengeSchema = new Schema<IChallenge>({
     type: { type: String, enum: Object.values(ChallengeType), required: true },
     start_date: { type: Date, default: Date.now },
     end_date: { type: Date, required: true },
-    participants: { type: [Schema.Types.ObjectId], required: true },
-    rewards: { type: [String], required: true },
+    participants: [{ type: Schema.Types.ObjectId, ref:"User", default: [] }],
+    rewards: [{ type: String, default: [] }],
     status: {
         type: String,
         enum: Object.values(ChallengeStatus),

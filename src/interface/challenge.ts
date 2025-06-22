@@ -7,7 +7,7 @@ export interface IChallenge extends Document {
     type: ChallengeType,
     start_date: Date,
     end_date: Date,
-    participants: [Types.ObjectId],
-    rewards: [String],
+    participants?: Types.ObjectId[],
+    rewards?: string[],
     status: ChallengeStatus
 }
