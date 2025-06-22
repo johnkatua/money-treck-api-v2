@@ -24,5 +24,11 @@ export enum TransactionStatus {
 export enum GoalStatus {
   Active = "active",
   Completed = "completed",
-  Archived = "archived"
+  Archived = "archived" 
+}
+
+export enum CategoryType {
+  Goal = "Goal",
+  Revenue = "Revenue",
+  Expense = "Expense"
 }

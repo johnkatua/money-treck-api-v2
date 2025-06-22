@@ -1,5 +1,6 @@
 import { Document, model, Schema } from "mongoose";
 import { ICategory } from "../interface/category";
+import { CategoryType } from "../interface/enums";
 
 const categorySchema = new Schema<ICategory & Document>({
     name: { 
@@ -13,8 +14,8 @@ const categorySchema = new Schema<ICategory & Document>({
         type: String, 
         required: [true, "Type is required"], 
         enum: {
-            values: ["Revenue", "Expense"],
-            message: "{VALUE} is not a valid type, use 'Revenue' or 'Expense'." 
+            values: Object.values(CategoryType),
+            message: `{VALUE} is not a valid type, use items in the list ${Object.values(CategoryType)}`
         }
     },
     user_id: { 
