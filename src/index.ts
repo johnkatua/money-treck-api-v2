@@ -9,6 +9,7 @@ import budgetRouter from "./routers/budget";
 import categoryRouter from "./routers/category";
 import challengeRouter from "./routers/challenge";
 import expenditureRouter from "./routers/expenditure";
+import goalRoutes from "./routers/goal.routes";
 import paymentRouter from "./routers/payment";
 import planRouter from "./routers/plan";
 import pointRoutes from "./routers/point.routes";
@@ -38,7 +39,8 @@ app.use("/api/reports", reportRouter);
 app.use("/api/plans", planRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/challenges", challengeRouter);
-app.use("/api/points", pointRoutes)
+app.use("/api/points", pointRoutes);
+app.use("/api/goals", goalRoutes);
 
 app.get("/healthcheck", (_req: Request, res: Response) => {
   res.send('API healthcheck!')
