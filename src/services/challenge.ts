@@ -32,4 +32,28 @@ export class ChallengeService {
             msg: "Challenge deleted successfully"
         }
     }
+
+    async addParticipants(challengeId: string, userId: string) {
+        const challenge = await this.findById(challengeId)
+        if (!challenge.participants.includes(userId as any)) {
+            challenge.participants.push(userId as any)
+            await challenge.save()
+        }
+
+        return challenge
+    }
+
+    async removeParticipants(challengeId: string, userId: string) {
+        const challenge = await this.findById(challengeId)
+        challenge.participants = challenge.participants.filter(
+            (id) => id.toString() !== userId
+        )
+        await challenge.save()
+        return challenge
+    }
+
+    async getParticipants(challengeId: string) {
+        const challenge = await this.findById(challengeId)
+        return challenge.participants
+    }
 }
