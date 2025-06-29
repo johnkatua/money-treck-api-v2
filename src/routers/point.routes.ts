@@ -5,6 +5,7 @@ const controller = new PointController();
 
 const pointRoutes = genericRoutes(controller);
 
-pointRoutes.get("/user/:userId", controller.getAllByUserId)
+pointRoutes.get("/user/:userId", controller.getUserPoints);
+pointRoutes.get("/:userId/total", controller.getUserTotalPoints);
 
 export default pointRoutes;

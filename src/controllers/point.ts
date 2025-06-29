@@ -12,13 +12,13 @@ export class PointController extends BaseController<any> {
         super(service)
     }
 
-    getAllByUserId: RequestHandlerAsync = asyncWrapper(async (req, res) => {
+    getUserPoints: RequestHandlerAsync = asyncWrapper(async (req, res) => {
         const { userId } = req.params;
         const items = await service.findAllByUserId(userId)
         return successResponse(res, items)
     })
 
-    getUserPoints: RequestHandlerAsync = asyncWrapper(async (req, res) => {
+    getUserTotalPoints: RequestHandlerAsync = asyncWrapper(async (req, res) => {
         const { userId } = req.params;
         const total = await service.getTotalPointsForUser(userId);
         return successResponse(res, total)
