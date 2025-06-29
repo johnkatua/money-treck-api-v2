@@ -11,6 +11,7 @@ import challengeRouter from "./routers/challenge";
 import expenditureRouter from "./routers/expenditure";
 import paymentRouter from "./routers/payment";
 import planRouter from "./routers/plan";
+import pointRoutes from "./routers/point.routes";
 import reportRouter from "./routers/report";
 import revenueRouter from "./routers/revenue";
 import subscriptionRouter from "./routers/subscription";
@@ -37,6 +38,7 @@ app.use("/api/reports", reportRouter);
 app.use("/api/plans", planRouter);
 app.use("/api/categories", categoryRouter);
 app.use("/api/challenges", challengeRouter);
+app.use("/api/points", pointRoutes)
 
 app.get("/healthcheck", (_req: Request, res: Response) => {
   res.send('API healthcheck!')

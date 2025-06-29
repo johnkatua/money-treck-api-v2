@@ -3,6 +3,6 @@ import { genericRoutes } from "./generic.routes";
 
 const controller = new PointController();
 
-const challengeRoutes = genericRoutes(controller);
+const pointRoutes = genericRoutes(controller);
 
-export default challengeRoutes;
+export default pointRoutes;
