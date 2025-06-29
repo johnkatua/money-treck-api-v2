@@ -1,8 +1,10 @@
-import { CreatePointDtoType } from "../dto/point.dto";
-import Point from "../models/point";
+import { Model } from "mongoose";
+import { IPoint } from "../interface/point";
+import { GenericService } from "./generic";
 
-export class PointService {
-    async create(data: CreatePointDtoType) {
-        return await Point.create(data)
+
+export class PointService extends GenericService<IPoint> {
+    constructor (model: Model<IPoint>) {
+        super(model)
     }
 }
