@@ -1,9 +1,9 @@
-import { RequestHandlerAsync } from "../../types/controller.types";
+import { GenericService, RequestHandlerAsync } from "../../types/controller.types";
 import { asyncWrapper } from "../../utils/async_wrapper";
 import { successMsgResponse, successResponse } from "../../utils/response.utils";
 
 export abstract class BaseController<T> {
-    constructor(protected readonly service: any) {}
+    constructor(protected readonly service: GenericService<T>) {}
 
     create: RequestHandlerAsync = asyncWrapper(async (req, res) => {
         const data = req.body;
@@ -34,7 +34,7 @@ export abstract class BaseController<T> {
         await this.service.deleteById(id);
         return successMsgResponse(
             res,
-            `${this.service.model?.modelName ?? "Resource"} deleted successfully`
+            `Resource deleted successfully`
         )
     })
 }
