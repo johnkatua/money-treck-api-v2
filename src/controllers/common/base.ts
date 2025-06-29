@@ -1,13 +1,40 @@
+import { RequestHandlerAsync } from "../../types/controller.types";
+import { asyncWrapper } from "../../utils/async_wrapper";
+import { successMsgResponse, successResponse } from "../../utils/response.utils";
+
 export abstract class BaseController<T> {
     constructor(protected readonly service: any) {}
 
-    create() {}
+    create: RequestHandlerAsync = asyncWrapper(async (req, res) => {
+        const data = req.body;
+        const item = await this.service.create(data)
+        return successResponse(res, item, 201)
+    })
 
-    getAll() {}
+    getAll: RequestHandlerAsync = asyncWrapper(async (req, res) => {
+        const items = await this.service.findAll();
+        return successResponse(res, items)
+    })
 
-    getById() {}
+    getById: RequestHandlerAsync = asyncWrapper(async (req, res) => {
+        const { id } = req.params;
+        const item = await this.service.findById(id)
+        return successResponse(res, item)
+    })
 
-    updateById() {}
+    updateById: RequestHandlerAsync = asyncWrapper(async (req, res) => {
+        const { id } = req.params;
+        const data = req.body;
+        const updatedItem = await this.service.updateById(id, data)
+        return successResponse(res, updatedItem)
+    })
 
-    deleteById() {}
+    deleteById: RequestHandlerAsync = asyncWrapper(async (req, res) => {
+        const { id } = req.params;
+        await this.service.deleteById(id);
+        return successMsgResponse(
+            res,
+            `${this.service.model?.modelName ?? "Resource"} deleted successfully`
+        )
+    })
 }
