@@ -3,7 +3,7 @@ import { IPoint } from "../interface/point";
 import { GenericService } from "./generic";
 
 
-export abstract class PointService extends GenericService<IPoint> {
+export class PointService extends GenericService<IPoint> {
     constructor (model: Model<IPoint>) {
         super(model)
     }
