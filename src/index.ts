@@ -7,6 +7,7 @@ import { startCreateTransactionsFromRecurringJob } from "./jobs/transaction_from
 import { errorHandler } from "./middleware/error_handler";
 import budgetRouter from "./routers/budget";
 import categoryRouter from "./routers/category";
+import challengeRouter from "./routers/challenge";
 import expenditureRouter from "./routers/expenditure";
 import paymentRouter from "./routers/payment";
 import planRouter from "./routers/plan";
@@ -35,6 +36,7 @@ app.use("/api/payments", paymentRouter);
 app.use("/api/reports", reportRouter);
 app.use("/api/plans", planRouter);
 app.use("/api/categories", categoryRouter);
+app.use("/api/challenges", challengeRouter);
 
 app.get("/healthcheck", (_req: Request, res: Response) => {
   res.send('API healthcheck!')
