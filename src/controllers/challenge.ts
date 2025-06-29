@@ -51,3 +51,41 @@ export const updateChallenge = async (req: Request, res: Response, next: NextFun
         next(error)
     }
 }
+
+export const deleteChallenge = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        await challengeService.deleteById(id);
+        res.json({
+            msg: "Challenge deleted successfully"
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const joinChallenge = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const { userId } = req.body;
+        const challenge = await challengeService.addParticipants(id, userId)
+        res.json({
+            data: challenge
+        })
+    } catch (error) {
+        next(error)
+    }
+}
+
+export const leaveChallenge = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+        const { id } = req.params;
+        const { userId } = req.body;
+        const challenge = await challengeService.removeParticipants(id, userId)
+        res.json({
+            data: challenge
+        })
+    } catch (error) {
+        next(error)
+    }
+}
