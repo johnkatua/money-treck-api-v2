@@ -1,41 +1,42 @@
-import { Model } from "mongoose";
+import { Document, Model } from "mongoose";
+import { NotFoundError } from "../utils/exceptions/not_found";
 
-export class GenericService<T> {
-    constructor (private model: Model<T>) {}
+export abstract class GenericService<T extends Document> {
+    constructor (protected readonly model: Model<T>) {}
 
-    
-    checkDocExistance(doc: any) {
-        const notFoundError = `${this.model.modelName} not found`
-        if (!doc) throw new Error(notFoundError)
+
+    protected async ensureExists(id: string): Promise<void> {
+        const exists = await this.model.findById(id).exec();
+        if (!exists) {
+            throw new NotFoundError(`${this.model.modelName} with ID ${id} not found`)
+        }
     }
 
 
-    async create(data: Partial<T>) {
-        return await this.model.create(data as any)
+    async create(data: Partial<T>): Promise<T> {
+        return await this.model.create(data)
     }
 
-    async findAll(sortBy: string = "-createdAt") {
-        return this.model.find().sort(sortBy)
+    async findAll(sortBy: string = "-createdAt"): Promise<T[]> {
+        return this.model.find().sort(sortBy).exec()
     }
 
-    async findById(id: string) {
-        const doc = await this.model.findById(id)
-        this.checkDocExistance(doc)
-        return doc;
+    async findById(id: string): Promise<T | null> {
+        await this.ensureExists(id)
+        return await this.model.findById(id).exec()
     }
 
-    async updateById(id: string, data: Partial<T>) {
-        const updated = await this.model.findByIdAndUpdate(id, data, {
+    async updateById(id: string, data: Partial<T>): Promise<T | null> {
+        await this.ensureExists(id);
+        return await this.model.findByIdAndUpdate(id, data, {
             new: true,
             runValidators: true
-        })
-        this.checkDocExistance(updated)
-        return updated;
+        }).exec()
     }
 
-    async deleteById(id: string) {
-        const result = await this.model.findByIdAndDelete(id);
-        this.checkDocExistance(result)
+    async deleteById(id: string): Promise<{ msg: string }> {
+        await this.ensureExists(id)
+        await this.model.findByIdAndDelete(id);
         return {
             msg: `${this.model.modelName} deleted successfully`
         }
