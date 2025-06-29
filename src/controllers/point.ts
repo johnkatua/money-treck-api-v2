@@ -17,4 +17,10 @@ export class PointController extends BaseController<any> {
         const items = await service.findAllByUserId(userId)
         return successResponse(res, items)
     })
+
+    getUserPoints: RequestHandlerAsync = asyncWrapper(async (req, res) => {
+        const { userId } = req.params;
+        const total = await service.getTotalPointsForUser(userId);
+        return successResponse(res, total)
+    })
 }
